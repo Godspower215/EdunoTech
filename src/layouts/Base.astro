@@ -15,7 +15,7 @@ interface Props {
   jsonLd?: Record<string, unknown>[];
 }
 const { title, description, image = '/og-default.png', noindex = false, footerStatement, jsonLd = [] } = Astro.props;
-const canonical = new URL(Astro.url.pathname.replace(/\.html$/, ''), Astro.site);
+const canonical = new URL(Astro.url.pathname.replace(/\.html$/, '').replace(/(^|\/)index$/, '$1'), Astro.site);
 const ogImage = new URL(image, Astro.site);
 const org = {
   '@context': 'https://schema.org',
