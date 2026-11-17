@@ -253,6 +253,17 @@ collections:
               - { name: alt, label: Photo description (alt text), widget: string }
               - { name: caption, label: Caption, widget: string, required: false }
               - { name: group, label: Gallery group, widget: string, required: false, hint: "e.g. Our Host, Moments from ECIC 2026. Photos with the same group appear together." }
+          - name: winner
+            label: ECIC 2026 Winner
+            widget: object
+            fields:
+              - { name: show, label: Show winner, widget: boolean, default: true }
+              - { name: heading, label: Badge text, widget: string }
+              - { name: name, label: Winner's name, widget: string, required: false }
+              - { name: school, label: School, widget: string, required: false }
+              - { name: project, label: Winning project, widget: string, required: false }
+              - { name: photo, label: Photo, widget: image }
+              - { name: photoAlt, label: Photo description, widget: string }
           - name: host
             label: Our Host
             widget: object

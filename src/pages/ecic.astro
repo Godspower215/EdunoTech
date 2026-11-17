@@ -16,6 +16,8 @@ const groups = [...new Set(gallery.map((g) => g.group || 'Moments from ECIC 2026
 }));
 type Host = { show: boolean; heading: string; name: string; role: string; bio: string; photos: { src: string; alt: string }[] };
 const host = (ecic as any).host as Host | undefined;
+type Winner = { show: boolean; heading: string; name: string; school: string; project: string; photo: string; photoAlt: string };
+const winner = (ecic as any).winner as Winner | undefined;
 const announcements = ecic.announcements as Announcement[];
 const fmtDate = (d: string) => new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 ---
@@ -106,6 +108,20 @@ const fmtDate = (d: string) => new Date(d).toLocaleDateString('en-GB', { day: 'n
         </div>
       </div>
 
+      {winner?.show && (
+        <div class="winner" id="winner">
+          <img class="winner__photo" src={winner.photo} alt={winner.photoAlt} loading="lazy" decoding="async" />
+          <div class="winner__body">
+            <span class="winner__badge"><Icon name="trophy" size={18} /> {winner.heading}</span>
+            <p class="winner__name">{winner.name ? winner.name : <Placeholder label="Winner's name" />}</p>
+            <dl class="winner__meta">
+              <div><dt>School</dt><dd>{winner.school ? winner.school : <Placeholder label="School" />}</dd></div>
+              <div><dt>Winning project</dt><dd>{winner.project ? winner.project : <Placeholder label="Project name and one-line description" />}</dd></div>
+            </dl>
+          </div>
+        </div>
+      )}
+
       <h3 class="sub">ECIC 2026 in numbers</h3>
       <dl class="stats">
         {ecic.stats.map((s) => (
@@ -150,7 +166,7 @@ const fmtDate = (d: string) => new Date(d).toLocaleDateString('en-GB', { day: 'n
       <div class="container host__grid">
         <div class="host__photos">
           {host.photos[0] && <img class="host__main" src={host.photos[0].src} alt={host.photos[0].alt} loading="lazy" decoding="async" />}
-          {host.photos.slice(1, 3).map((ph) => <img class="host__side" src={ph.src} alt={ph.alt} loading="lazy" decoding="async" />)}
+          {host.photos.slice(1, 3).map((ph) => <img class:list={['host__side', { 'host__side--tall': host.photos.length === 2 }]} src={ph.src} alt={ph.alt} loading="lazy" decoding="async" />)}
         </div>
         <div>
           <p class="eyebrow">ECIC 2026</p>
@@ -284,6 +300,17 @@ const fmtDate = (d: string) => new Date(d).toLocaleDateString('en-GB', { day: 'n
   .host__photos img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius); }
   .host__main { grid-row: 1 / 3; aspect-ratio: 3 / 4; }
   .host__side { aspect-ratio: 1 / 1; }
+  .host__side--tall { grid-row: 1 / 3; aspect-ratio: 3 / 4; object-position: center 30%; }
+  .host__photos:has(.host__side--tall) { grid-template-columns: 1fr 1fr; }
+
+  .winner { display: grid; gap: clamp(1.5rem, 4vw, 3rem); align-items: center; margin-top: clamp(3rem, 6vw, 4rem); padding: clamp(1.25rem, 3vw, 2rem); border-radius: calc(var(--radius) * 1.25); background: rgba(183, 217, 87, 0.08); border: 1px solid rgba(183, 217, 87, 0.35); }
+  @media (min-width: 760px) { .winner { grid-template-columns: minmax(240px, 0.8fr) 1.2fr; } }
+  .winner__photo { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 35%; border-radius: var(--radius); }
+  .winner__badge { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--lime); color: var(--forest); font-weight: 800; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.45rem 0.85rem; border-radius: 999px; }
+  .winner__name { font-size: var(--step-3); font-weight: 800; color: var(--white); line-height: 1.1; letter-spacing: -0.02em; margin: 1rem 0 1.25rem; }
+  .winner__meta { margin: 0; display: grid; gap: 0.9rem; }
+  .winner__meta dt { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--lime); font-weight: 700; }
+  .winner__meta dd { margin: 0.2rem 0 0; color: var(--white); font-weight: 600; }
   .host__name { font-size: var(--step-2); font-weight: 800; color: var(--forest); margin-bottom: 0.15rem; letter-spacing: -0.02em; }
   .host__role { color: var(--emerald-ink); font-weight: 700; margin-bottom: 1.25rem; }
 </style>
