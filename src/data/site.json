@@ -6,11 +6,24 @@
   "logoOnDark": "",
   "contact": {
     "email": "edunotech.edu@gmail.com",
-    "phone": "",
+    "phone": "+2348163776911",
     "whatsapp": "+2348163776911",
     "address": ""
   },
-  "socials": [],
+  "socials": [
+    {
+      "platform": "LinkedIn",
+      "url": "https://www.linkedin.com/company/eduno-tech"
+    },
+    {
+      "platform": "Instagram",
+      "url": "https://www.instagram.com/edunotech"
+    },
+    {
+      "platform": "Facebook",
+      "url": "https://www.facebook.com/edunotech001"
+    }
+  ],
   "analytics": {
     "cloudflareToken": ""
   }

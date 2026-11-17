@@ -1,4 +1,5 @@
 ---
+import SocialIcon from '../components/SocialIcon.astro';
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import Icon from '../components/Icon.astro';
@@ -34,15 +35,17 @@ const socials = site.socials as { platform: string; url: string }[];
             <span class="icon-badge"><Icon name="message" /></span>
             <div><strong>WhatsApp</strong>{c.whatsapp ? <a href={waLink(c.whatsapp)} target="_blank" rel="noopener" data-event="whatsapp_click">Chat on WhatsApp</a> : <Placeholder label="WhatsApp number, if available" />}</div>
           </li>
-          <li>
-            <span class="icon-badge"><Icon name="map-pin" /></span>
-            <div><strong>Office</strong>{c.address ? <span>{c.address}</span> : <Placeholder label="Address, if applicable" />}</div>
-          </li>
+          {c.address && (
+            <li>
+              <span class="icon-badge"><Icon name="map-pin" /></span>
+              <div><strong>Office</strong><span>{c.address}</span></div>
+            </li>
+          )}
           <li>
             <span class="icon-badge"><Icon name="globe" /></span>
             <div><strong>Social media</strong>
               {socials.length ? (
-                <span class="socials">{socials.map((s) => <a href={s.url} target="_blank" rel="noopener me">{s.platform}</a>)}</span>
+                <span class="socials">{socials.map((s) => <a class="social-btn" href={s.url} target="_blank" rel="noopener me" aria-label={`Edunotech on ${s.platform}`} title={s.platform} data-event="social_click"><SocialIcon platform={s.platform} /></a>)}</span>
               ) : <Placeholder label="Verified social links" />}
             </div>
           </li>

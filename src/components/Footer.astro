@@ -1,4 +1,5 @@
 ---
+import SocialIcon from './SocialIcon.astro';
 import site from '../data/site.json';
 import Logo from './Logo.astro';
 import Placeholder from './Placeholder.astro';
@@ -51,7 +52,7 @@ const socials = site.socials as { platform: string; url: string }[];
       </ul>
       <ul class="site-footer__social" aria-label="Social media">
         {socials.length ? socials.map((s) => (
-          <li><a href={s.url} rel="noopener me" target="_blank">{s.platform}</a></li>
+          <li><a class="social-btn" href={s.url} rel="noopener me" target="_blank" aria-label={`Edunotech on ${s.platform}`} title={s.platform} data-event="social_click"><SocialIcon platform={s.platform} /></a></li>
         )) : <li><Placeholder label="Verified social links" /></li>}
       </ul>
     </div>
@@ -82,7 +83,7 @@ const socials = site.socials as { platform: string; url: string }[];
   .site-footer h2 { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--lime); margin-bottom: 1rem; font-weight: 700; }
   .site-footer h2.mt { margin-top: 1.75rem; }
   .site-footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
-  .site-footer__social { margin-top: 1.25rem !important; display: flex !important; flex-wrap: wrap; gap: 0.5rem 1rem !important; }
+  .site-footer__social { margin-top: 1.25rem !important; display: flex !important; flex-wrap: wrap; gap: 0.6rem !important; }
   .site-footer__bottom {
     display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: center;
     padding-block: 1.5rem; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.88rem;
