@@ -1,6 +1,6 @@
 # Edunotech website
 
-Astro static site, hosted on Cloudflare Pages, with one Pages Function for form delivery and a git-based content manager (Sveltia CMS, Decap-compatible) at `/admin`.
+Astro static site, hosted on Cloudflare (Workers with static assets, via `wrangler.jsonc` and `worker/index.ts`; the same code also runs on Cloudflare Pages via `functions/`), with one form handler and a git-based content manager (Sveltia CMS, Decap-compatible) at `/admin`.
 
 ## Run locally
 

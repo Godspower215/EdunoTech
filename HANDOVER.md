@@ -5,7 +5,8 @@ Status: built and tested locally. Not deployed. No GitHub repo, Cloudflare proje
 ## 1. Stack, and why
 
 - **Astro (static) on Cloudflare Pages.** Static HTML is fast on mobile networks, cheap (Pages free tier), has almost nothing to hack, and matches the setup already used for Pen of Wonder.
-- **One Cloudflare Pages Function** (`functions/api/submit.ts`) receives both forms, validates them, checks spam protection and emails the submission. No database.
+- **Hosting:** the Cloudflare project was created as a Worker, so the repo includes `wrangler.jsonc` and `worker/index.ts` (build command `npm run build`, deploy command `npx wrangler deploy`). The same code still works as a Pages project.
+- **One form handler** (`functions/api/submit.ts`, used by both) receives both forms, validates them, checks spam protection and emails the submission. No database.
 - **Sveltia CMS at `/admin`.** A maintained, drop-in replacement for Decap CMS (same `config.yml`). Edits commit to GitHub and Cloudflare rebuilds the site in about a minute. No extra server or monthly fee.
 - **WordPress was not chosen** even though the services list mentions it: it needs paid hosting, plugin updates and security patching, which is more than a six-page company site needs.
 
@@ -27,7 +28,7 @@ Recommended setup (needs your go-ahead before any accounts are created):
 
 1. Create a Resend account and verify the sending domain (a few DNS records).
 2. In Cloudflare Turnstile, create a widget for the domain to get a site key and a secret key.
-3. In Cloudflare Pages > Settings > Variables, add the variables listed in `.env.example`.
+3. In the Cloudflare project > Settings > Variables and Secrets, add the variables listed in `.env.example`.
 4. Submit both forms on the live site and confirm both emails arrive.
 
 ## 4. Content manager (CMS)
