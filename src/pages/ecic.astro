@@ -7,9 +7,15 @@ import Placeholder from '../components/Placeholder.astro';
 import EcicInterestForm from '../components/EcicInterestForm.astro';
 import ecic from '../data/ecic.json';
 
-type Photo = { src: string; alt: string; caption?: string };
+type Photo = { src: string; alt: string; caption?: string; group?: string };
 type Announcement = { date: string; title: string; text: string; link?: string };
 const gallery = ecic.gallery as Photo[];
+const groups = [...new Set(gallery.map((g) => g.group || 'Moments from ECIC 2026'))].map((name) => ({
+  name,
+  items: gallery.filter((g) => (g.group || 'Moments from ECIC 2026') === name),
+}));
+type Host = { show: boolean; heading: string; name: string; role: string; bio: string; photos: { src: string; alt: string }[] };
+const host = (ecic as any).host as Host | undefined;
 const announcements = ecic.announcements as Announcement[];
 const fmtDate = (d: string) => new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 ---
@@ -112,16 +118,23 @@ const fmtDate = (d: string) => new Date(d).toLocaleDateString('en-GB', { day: 'n
 
       <h3 class="sub">Gallery</h3>
       {gallery.length > 0 ? (
-        <ul class="gallery">
-          {gallery.map((g) => (
-            <li>
-              <figure>
-                <img src={g.src} alt={g.alt} loading="lazy" decoding="async" />
-                {g.caption && <figcaption>{g.caption}</figcaption>}
-              </figure>
-            </li>
+        <div class="gallery-groups">
+          {groups.map((grp) => (
+            <div>
+              {groups.length > 1 && <h4 class="gallery-group">{grp.name}</h4>}
+              <ul class="gallery">
+                {grp.items.map((g) => (
+                  <li>
+                    <figure>
+                      <img src={g.src} alt={g.alt} loading="lazy" decoding="async" />
+                      {g.caption && <figcaption>{g.caption}</figcaption>}
+                    </figure>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
-        </ul>
+        </div>
       ) : (
         <ul class="gallery">
           {ecic.galleryPlaceholders.map((g) => (
@@ -131,6 +144,25 @@ const fmtDate = (d: string) => new Date(d).toLocaleDateString('en-GB', { day: 'n
       )}
     </div>
   </section>
+
+  {host?.show && (
+    <section class="section host" id="host" aria-labelledby="host-title">
+      <div class="container host__grid">
+        <div class="host__photos">
+          {host.photos[0] && <img class="host__main" src={host.photos[0].src} alt={host.photos[0].alt} loading="lazy" decoding="async" />}
+          {host.photos.slice(1, 3).map((ph) => <img class="host__side" src={ph.src} alt={ph.alt} loading="lazy" decoding="async" />)}
+        </div>
+        <div>
+          <p class="eyebrow">ECIC 2026</p>
+          <h2 id="host-title">{host.heading}</h2>
+          <p class="host__name">{host.name ? host.name : <Placeholder label="Host's name" />}</p>
+          <p class="host__role">{host.role}</p>
+          {host.bio ? <p>{host.bio}</p> : <p><Placeholder label="Short note about the host, approved by her" /></p>}
+          <a class="text-link" href="#ecic-2026">More photos in the gallery <Icon name="arrow-right" size={16} /></a>
+        </div>
+      </div>
+    </section>
+  )}
 
   {announcements.length > 0 && (
     <section class="section section--tight" id="announcements">
@@ -228,7 +260,7 @@ const fmtDate = (d: string) => new Date(d).toLocaleDateString('en-GB', { day: 'n
   .stat dd :global(.placeholder) { font-size: 0.9rem; }
   .gallery { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); }
   .gallery figure { margin: 0; }
-  .gallery img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-sm); }
+  .gallery img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 25%; border-radius: var(--radius-sm); }
   .gallery figcaption { font-size: 0.88rem; color: var(--on-dark-muted); margin-top: 0.5rem; }
 
   .announcements { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
@@ -244,4 +276,14 @@ const fmtDate = (d: string) => new Date(d).toLocaleDateString('en-GB', { day: 'n
   .ways li { display: flex; align-items: center; gap: 0.9rem; padding: 1rem 1.1rem; border: 1px solid var(--grey); border-radius: var(--radius); font-weight: 700; color: var(--forest); }
   .ways .icon-badge { margin: 0; width: 42px; height: 42px; }
   .closing { margin-top: 2rem; font-size: var(--step-1); font-weight: 700; color: var(--forest); max-width: 50ch; }
+  .gallery-groups { display: grid; gap: 2.25rem; }
+  .gallery-group { color: var(--white); font-size: var(--step-1); margin-bottom: 1rem; }
+  .host__grid { display: grid; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  @media (min-width: 900px) { .host__grid { grid-template-columns: 1.1fr 0.9fr; } }
+  .host__photos { display: grid; grid-template-columns: 1.4fr 1fr; grid-template-rows: 1fr 1fr; gap: 0.75rem; }
+  .host__photos img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius); }
+  .host__main { grid-row: 1 / 3; aspect-ratio: 3 / 4; }
+  .host__side { aspect-ratio: 1 / 1; }
+  .host__name { font-size: var(--step-2); font-weight: 800; color: var(--forest); margin-bottom: 0.15rem; letter-spacing: -0.02em; }
+  .host__role { color: var(--emerald-ink); font-weight: 700; margin-bottom: 1.25rem; }
 </style>

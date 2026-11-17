@@ -71,6 +71,27 @@
     ],
     "finaleDate": "2026-09-26"
   },
+  "host": {
+    "show": true,
+    "heading": "Our Host",
+    "name": "",
+    "role": "Host, ECIC 2026",
+    "bio": "",
+    "photos": [
+      {
+        "src": "/images/ecic/ecic-2026-host-portrait.webp",
+        "alt": "The ECIC 2026 host in a red dress in front of the ECIC 2026 backdrop"
+      },
+      {
+        "src": "/images/ecic/ecic-2026-host-welcome.webp",
+        "alt": "The ECIC 2026 host with arms open in welcome in front of the ECIC 2026 backdrop"
+      },
+      {
+        "src": "/images/ecic/ecic-2026-host-full.webp",
+        "alt": "Full-length photo of the ECIC 2026 host standing in front of the ECIC 2026 backdrop"
+      }
+    ]
+  },
   "stats": [
     {
       "label": "Schools reached",
@@ -95,44 +116,76 @@
   ],
   "gallery": [
     {
+      "src": "/images/ecic/ecic-2026-host-1.webp",
+      "alt": "The ECIC 2026 host smiling in front of the event backdrop",
+      "caption": "Our host, ECIC 2026",
+      "group": "Our Host"
+    },
+    {
+      "src": "/images/ecic/ecic-2026-host-2.webp",
+      "alt": "The ECIC 2026 host waving in front of the event backdrop",
+      "caption": "Our host, ECIC 2026",
+      "group": "Our Host"
+    },
+    {
+      "src": "/images/ecic/ecic-2026-host-3.webp",
+      "alt": "The ECIC 2026 host posing in front of the event backdrop",
+      "caption": "Our host, ECIC 2026",
+      "group": "Our Host"
+    },
+    {
+      "src": "/images/ecic/ecic-2026-host-with-guest.webp",
+      "alt": "The ECIC 2026 host standing with a guest in front of the event backdrop",
+      "caption": "Our host with a guest, ECIC 2026",
+      "group": "Our Host"
+    },
+    {
       "src": "/images/ecic/ecic-2026-plaque-presentation.webp",
       "alt": "A student receiving an award plaque on stage at ECIC 2026",
-      "caption": "Award presentation, ECIC 2026"
+      "caption": "Award presentation, ECIC 2026",
+      "group": "Moments from ECIC 2026"
     },
     {
       "src": "/images/ecic/ecic-2026-award-handover.webp",
       "alt": "An award plaque being presented to a student at ECIC 2026",
-      "caption": "Award presentation, ECIC 2026"
+      "caption": "Award presentation, ECIC 2026",
+      "group": "Moments from ECIC 2026"
     },
     {
       "src": "/images/ecic/ecic-2026-group-photo-4.webp",
       "alt": "Two students in white shirts standing with a guest at the ECIC 2026 backdrop",
-      "caption": "Participants and guests, ECIC 2026"
+      "caption": "Participants and guests, ECIC 2026",
+      "group": "Moments from ECIC 2026"
     },
     {
       "src": "/images/ecic/ecic-2026-group-photo-1.webp",
       "alt": "Three people smiling in front of the ECIC 2026 backdrop",
-      "caption": "ECIC 2026"
+      "caption": "ECIC 2026",
+      "group": "Moments from ECIC 2026"
     },
     {
       "src": "/images/ecic/ecic-2026-group-photo-2.webp",
       "alt": "Three people posing cheerfully in front of the ECIC 2026 backdrop",
-      "caption": "ECIC 2026"
+      "caption": "ECIC 2026",
+      "group": "Moments from ECIC 2026"
     },
     {
       "src": "/images/ecic/ecic-2026-group-photo-3.webp",
       "alt": "Two guests standing in front of the ECIC 2026 backdrop",
-      "caption": "ECIC 2026"
+      "caption": "ECIC 2026",
+      "group": "Moments from ECIC 2026"
     },
     {
       "src": "/images/ecic/ecic-2026-portrait-2.webp",
       "alt": "A guest with arms outstretched in front of the ECIC 2026 backdrop",
-      "caption": "ECIC 2026"
+      "caption": "ECIC 2026",
+      "group": "Moments from ECIC 2026"
     },
     {
       "src": "/images/ecic/ecic-2026-portrait.webp",
       "alt": "A smiling attendee in front of the ECIC 2026 backdrop",
-      "caption": "ECIC 2026"
+      "caption": "ECIC 2026",
+      "group": "Moments from ECIC 2026"
     }
   ],
   "galleryPlaceholders": [

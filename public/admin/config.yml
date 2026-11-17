@@ -252,6 +252,22 @@ collections:
               - { name: src, label: Photo, widget: image }
               - { name: alt, label: Photo description (alt text), widget: string }
               - { name: caption, label: Caption, widget: string, required: false }
+              - { name: group, label: Gallery group, widget: string, required: false, hint: "e.g. Our Host, Moments from ECIC 2026. Photos with the same group appear together." }
+          - name: host
+            label: Our Host
+            widget: object
+            fields:
+              - { name: show, label: Show host section, widget: boolean, default: true }
+              - { name: heading, label: Heading, widget: string }
+              - { name: name, label: Host's name, widget: string, required: false }
+              - { name: role, label: Role, widget: string }
+              - { name: bio, label: Short note (approved by the host), widget: text, required: false }
+              - name: photos
+                label: Photos (first one is the large photo)
+                widget: list
+                fields:
+                  - { name: src, label: Photo, widget: image }
+                  - { name: alt, label: Photo description, widget: string }
           - name: announcements
             label: Announcements
             widget: list
