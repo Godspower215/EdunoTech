@@ -41,7 +41,7 @@ const ENQUIRY_LABELS: Record<string, string> = {
 };
 
 const ECIC_INTERESTS = new Set([
-  'School participation',
+  'Institution participation',
   'Innovator or student participation',
   'Mentorship',
   'Volunteering',

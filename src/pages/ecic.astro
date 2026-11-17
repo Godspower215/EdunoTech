@@ -16,6 +16,13 @@ const groups = [...new Set(gallery.map((g) => g.group || 'Moments from ECIC 2026
 }));
 type Host = { show: boolean; heading: string; name: string; role: string; bio: string; photos: { src: string; alt: string }[] };
 const host = (ecic as any).host as Host | undefined;
+const creative = (ecic as any).creative as Host | undefined;
+const spotlights = [
+  host && { ...host, id: 'host', namePh: "Host's name", bioPh: 'Short note about the host, approved by her' },
+  creative && { ...creative, id: 'creative-strategist', namePh: 'Name', bioPh: 'Short note about her role in ECIC, coming soon' },
+].filter((x) => x && x.show) as (Host & { id: string; namePh: string; bioPh: string })[];
+const solutions = ((ecic as any).solutions2026 ?? []) as string[];
+const partners = ((ecic as any).partners2026 ?? []) as string[];
 type Winner = { show: boolean; heading: string; name: string; school: string; project: string; photo: string; photoAlt: string };
 const winner = (ecic as any).winner as Winner | undefined;
 const announcements = ecic.announcements as Announcement[];
@@ -128,9 +135,27 @@ const fmtDate = (d: string) => new Date(d).toLocaleDateString('en-GB', { day: 'n
           <div class="stat">
             <dt>{s.label}</dt>
             <dd>{s.value ? s.value : <Placeholder label="NUMBER" />}</dd>
+            {(s as any).note && <dd class="stat__note">{(s as any).note}</dd>}
           </div>
         ))}
       </dl>
+
+      {(solutions.length > 0 || partners.length > 0) && (
+        <div class="lists2026">
+          {solutions.length > 0 && (
+            <div>
+              <h3 class="sub sub--tight">Solutions and ideas presented</h3>
+              <ul class="chips">{solutions.map((x) => <li>{x}</li>)}</ul>
+            </div>
+          )}
+          {partners.length > 0 && (
+            <div>
+              <h3 class="sub sub--tight">Partners</h3>
+              <ul class="chips chips--partners">{partners.map((x) => <li>{x}</li>)}</ul>
+            </div>
+          )}
+        </div>
+      )}
 
       <h3 class="sub">Gallery</h3>
       {gallery.length > 0 ? (
@@ -161,24 +186,24 @@ const fmtDate = (d: string) => new Date(d).toLocaleDateString('en-GB', { day: 'n
     </div>
   </section>
 
-  {host?.show && (
-    <section class="section host" id="host" aria-labelledby="host-title">
+  {spotlights.map((sp, idx) => (
+    <section class:list={['section host', { 'section--neutral host--flip': idx % 2 === 1 }]} id={sp.id} aria-labelledby={`${sp.id}-title`}>
       <div class="container host__grid">
         <div class="host__photos">
-          {host.photos[0] && <img class="host__main" src={host.photos[0].src} alt={host.photos[0].alt} loading="lazy" decoding="async" />}
-          {host.photos.slice(1, 3).map((ph) => <img class:list={['host__side', { 'host__side--tall': host.photos.length === 2 }]} src={ph.src} alt={ph.alt} loading="lazy" decoding="async" />)}
+          {sp.photos[0] && <img class="host__main" src={sp.photos[0].src} alt={sp.photos[0].alt} loading="lazy" decoding="async" />}
+          {sp.photos.slice(1, 3).map((ph) => <img class:list={['host__side', { 'host__side--tall': sp.photos.length === 2 }]} src={ph.src} alt={ph.alt} loading="lazy" decoding="async" />)}
         </div>
         <div>
           <p class="eyebrow">ECIC 2026</p>
-          <h2 id="host-title">{host.heading}</h2>
-          <p class="host__name">{host.name ? host.name : <Placeholder label="Host's name" />}</p>
-          <p class="host__role">{host.role}</p>
-          {host.bio ? <p>{host.bio}</p> : <p><Placeholder label="Short note about the host, approved by her" /></p>}
-          <a class="text-link" href="#ecic-2026">More photos in the gallery <Icon name="arrow-right" size={16} /></a>
+          <h2 id={`${sp.id}-title`}>{sp.heading}</h2>
+          <p class="host__name">{sp.name ? sp.name : <Placeholder label={sp.namePh} />}</p>
+          <p class="host__role">{sp.role}</p>
+          {sp.bio ? <p>{sp.bio}</p> : <p><Placeholder label={sp.bioPh} /></p>}
+          {idx === 0 && <a class="text-link" href="#ecic-2026">More photos in the gallery <Icon name="arrow-right" size={16} /></a>}
         </div>
       </div>
     </section>
-  )}
+  ))}
 
   {announcements.length > 0 && (
     <section class="section section--tight" id="announcements">
@@ -270,7 +295,7 @@ const fmtDate = (d: string) => new Date(d).toLocaleDateString('en-GB', { day: 'n
   .finale :global(svg) { color: var(--lime); }
   .sub { color: var(--lime) !important; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; margin: clamp(3rem, 6vw, 4rem) 0 1.25rem; }
   .stats { margin: 0; display: grid; gap: 1px; background: rgba(255,255,255,0.12); border-radius: var(--radius); overflow: hidden; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); }
-  .stat { background: var(--forest); padding: 1.5rem; display: flex; flex-direction: column-reverse; gap: 0.5rem; }
+  .stat { background: var(--forest); padding: 1.5rem; display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: 0.5rem; }
   .stat dt { color: var(--on-dark-muted); font-size: 0.95rem; }
   .stat dd { margin: 0; font-size: var(--step-3); font-weight: 800; color: var(--white); line-height: 1; }
   .stat dd :global(.placeholder) { font-size: 0.9rem; }
@@ -312,5 +337,13 @@ const fmtDate = (d: string) => new Date(d).toLocaleDateString('en-GB', { day: 'n
   .winner__meta dt { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--lime); font-weight: 700; }
   .winner__meta dd { margin: 0.2rem 0 0; color: var(--white); font-weight: 600; }
   .host__name { font-size: var(--step-2); font-weight: 800; color: var(--forest); margin-bottom: 0.15rem; letter-spacing: -0.02em; }
+  @media (min-width: 900px) { .host--flip .host__grid { grid-template-columns: 0.9fr 1.1fr; } .host--flip .host__photos { order: 2; } }
+  .stat__note { margin: 0 !important; font-size: 0.85rem !important; font-weight: 500 !important; color: var(--on-dark-muted) !important; line-height: 1.4 !important; order: -1; }
+  .lists2026 { display: grid; gap: 0 2.5rem; }
+  @media (min-width: 900px) { .lists2026 { grid-template-columns: 1fr 1fr; } }
+  .sub--tight { margin-top: 2.5rem !important; }
+  .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .chips li { padding: 0.55rem 1rem; border-radius: 999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.16); color: var(--white); font-weight: 700; }
+  .chips--partners li { background: transparent; }
   .host__role { color: var(--emerald-ink); font-weight: 700; margin-bottom: 1.25rem; }
 </style>

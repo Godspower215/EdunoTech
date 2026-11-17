@@ -1,7 +1,7 @@
 {
   "hero": {
     "headline": "Every community has problems. Every young person has the potential to create solutions.",
-    "text": "The Edunotech Community Innovation Challenge (ECIC) is a student-focused innovation initiative that encourages secondary school students to identify real challenges within their communities, develop practical solutions, and present their ideas.",
+    "text": "The Edunotech Community Innovation Challenge (ECIC) is a student-focused innovation initiative that encourages university students to identify real challenges within their communities, develop practical solutions, and present their ideas.",
     "image": "/images/ecic/ecic-2026-certificate-winner.webp",
     "imageAlt": "A student holding a framed certificate in front of the ECIC 2026 backdrop",
     "imagePlaceholder": "Approved ECIC 2026 photograph for the page header"
@@ -97,27 +97,62 @@
       }
     ]
   },
+  "creative": {
+    "show": true,
+    "heading": "The Creative Strategist",
+    "name": "Priscilla Peace Akinleye",
+    "role": "Creative Strategist and Event Planner, ECIC 2026",
+    "bio": "",
+    "photos": [
+      {
+        "src": "/images/ecic/ecic-2026-creative-strategist-1.webp",
+        "alt": "Priscilla Peace Akinleye holding her ECIC 2026 Certificate of Excellence"
+      },
+      {
+        "src": "/images/ecic/ecic-2026-creative-strategist-2.webp",
+        "alt": "Priscilla Peace Akinleye smiling in front of the ECIC 2026 backdrop"
+      }
+    ]
+  },
   "stats": [
     {
-      "label": "Schools reached",
-      "value": ""
+      "label": "Schools and institutions reached",
+      "value": "12",
+      "note": "10 secondary schools, plus University of Ibadan and School of Nursing, Eleyele"
     },
     {
       "label": "Students engaged",
-      "value": ""
+      "value": "150+",
+      "note": ""
     },
     {
       "label": "Innovators selected",
-      "value": ""
+      "value": "5",
+      "note": ""
     },
     {
-      "label": "Solutions or ideas presented",
-      "value": ""
+      "label": "Solutions and ideas presented",
+      "value": "5",
+      "note": ""
     },
     {
-      "label": "Partners and volunteers involved",
-      "value": ""
+      "label": "Partners",
+      "value": "4",
+      "note": ""
     }
+  ],
+  "solutions2026": [
+    "EcoBag",
+    "EcoCycle",
+    "Soro App",
+    "UniLink",
+    "SoulSync"
+  ],
+  "partners2026": [
+    "Timi Legit Media",
+    "Novaverse",
+    "Davidic Multi Resource Limited",
+    "Ennovate Lab"
   ],
   "gallery": [
     {
@@ -195,7 +230,7 @@
     ]
   },
   "interestCategories": [
-    "School participation",
+    "Institution participation",
     "Innovator or student participation",
     "Mentorship",
     "Volunteering",

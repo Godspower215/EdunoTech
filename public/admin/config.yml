@@ -243,6 +243,9 @@ collections:
             fields:
               - { name: label, label: Label, widget: string }
               - { name: value, label: Verified value, widget: string, required: false }
+              - { name: note, label: Small note under the number, widget: string, required: false }
+          - { name: solutions2026, label: Solutions and ideas presented (2026), widget: list, required: false, field: { name: s, label: Solution, widget: string } }
+          - { name: partners2026, label: Partners (2026), widget: list, required: false, field: { name: p, label: Partner, widget: string } }
           - name: gallery
             label: Photo gallery
             widget: list
@@ -273,6 +276,21 @@ collections:
               - { name: name, label: Host's name, widget: string, required: false }
               - { name: role, label: Role, widget: string }
               - { name: bio, label: Short note (approved by the host), widget: text, required: false }
+              - name: photos
+                label: Photos (first one is the large photo)
+                widget: list
+                fields:
+                  - { name: src, label: Photo, widget: image }
+                  - { name: alt, label: Photo description, widget: string }
+          - name: creative
+            label: Creative Strategist spotlight
+            widget: object
+            fields:
+              - { name: show, label: Show this section, widget: boolean, default: true }
+              - { name: heading, label: Heading, widget: string }
+              - { name: name, label: Name, widget: string, required: false }
+              - { name: role, label: Role, widget: string }
+              - { name: bio, label: Short note (approved by her), widget: text, required: false }
               - name: photos
                 label: Photos (first one is the large photo)
                 widget: list
