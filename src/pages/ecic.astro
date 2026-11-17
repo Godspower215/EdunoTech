@@ -115,7 +115,7 @@ const fmtDate = (d: string) => new Date(d).toLocaleDateString('en-GB', { day: 'n
             <span class="winner__badge"><Icon name="trophy" size={18} /> {winner.heading}</span>
             <p class="winner__name">{winner.name ? winner.name : <Placeholder label="Winner's name" />}</p>
             <dl class="winner__meta">
-              <div><dt>School</dt><dd>{winner.school ? winner.school : <Placeholder label="School" />}</dd></div>
+              <div><dt>Institution</dt><dd>{winner.school ? winner.school : <Placeholder label="School" />}</dd></div>
               <div><dt>Winning project</dt><dd>{winner.project ? winner.project : <Placeholder label="Project name and one-line description" />}</dd></div>
             </dl>
           </div>

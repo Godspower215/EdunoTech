@@ -74,11 +74,11 @@
   "winner": {
     "show": true,
     "heading": "Winner of ECIC 2026",
-    "name": "",
-    "school": "",
-    "project": "",
-    "photo": "/images/ecic/ecic-2026-plaque-presentation.webp",
-    "photoAlt": "The winner of ECIC 2026 holding the winner's plaque on stage at the Grand Finale"
+    "name": "Joshua Galba",
+    "school": "University of Ibadan",
+    "project": "Turning agricultural waste into paper products, especially paper bags",
+    "photo": "/images/ecic/ecic-2026-award-handover.webp",
+    "photoAlt": "Joshua Galba, in a white shirt and tie, receiving the ECIC 2026 winner's plaque in front of the event backdrop"
   },
   "host": {
     "show": true,
@@ -133,8 +133,8 @@
       "group": "Our Host"
     },
     {
-      "src": "/images/ecic/ecic-2026-award-handover.webp",
-      "alt": "An award plaque being presented to a student at ECIC 2026",
+      "src": "/images/ecic/ecic-2026-plaque-presentation.webp",
+      "alt": "A participant receiving an award plaque on stage at ECIC 2026",
       "caption": "Award presentation, ECIC 2026",
       "group": "Moments from ECIC 2026"
     },

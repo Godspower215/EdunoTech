@@ -260,7 +260,7 @@ collections:
               - { name: show, label: Show winner, widget: boolean, default: true }
               - { name: heading, label: Badge text, widget: string }
               - { name: name, label: Winner's name, widget: string, required: false }
-              - { name: school, label: School, widget: string, required: false }
+              - { name: school, label: School or institution, widget: string, required: false }
               - { name: project, label: Winning project, widget: string, required: false }
               - { name: photo, label: Photo, widget: image }
               - { name: photoAlt, label: Photo description, widget: string }
