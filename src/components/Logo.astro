@@ -1,0 +1,28 @@
+---
+// Official logo from src/data/site.json. On dark backgrounds it uses
+// `logoOnDark` if supplied, otherwise the standard logo on a white tile
+// (the logo is never recoloured; blueprint 5.3).
+import site from '../data/site.json';
+interface Props { variant?: 'light' | 'dark'; }
+const { variant = 'light' } = Astro.props;
+const dark = variant === 'dark';
+const src = dark ? site.logoOnDark || site.logo : site.logo;
+const tile = dark && !site.logoOnDark && Boolean(site.logo);
+---
+{src ? (
+  <span class:list={['logo', { 'logo--tile': tile, 'logo--footer': dark }]}>
+    <img src={src} alt={site.name} width="290" height="230" />
+  </span>
+) : (
+  <span class:list={['wordmark', { 'wordmark--dark': dark }]} data-placeholder="logo">Eduno<span>tech</span></span>
+)}
+<style>
+  .logo { display: inline-flex; }
+  .logo img { height: 56px; width: auto; }
+  .logo--footer img { height: 72px; }
+  .logo--tile { background: var(--white); border-radius: 12px; padding: 0.6rem 0.85rem; }
+  .wordmark { font-weight: 800; font-size: 1.35rem; letter-spacing: -0.03em; color: var(--forest); line-height: 1; }
+  .wordmark span { color: var(--emerald); margin-left: 0.2em; }
+  .wordmark--dark { color: var(--white); }
+  .wordmark--dark span { color: var(--lime); }
+</style>

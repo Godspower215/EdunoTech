@@ -1,0 +1,204 @@
+{
+  "hero": {
+    "headline": "Every community has problems. Every young person has the potential to create solutions.",
+    "text": "The Edunotech Community Innovation Challenge (ECIC) is a student-focused innovation initiative that encourages secondary school students to identify real challenges within their communities, develop practical solutions, and present their ideas.",
+    "image": "/images/ecic/ecic-2026-certificate-winner.webp",
+    "imageAlt": "A student holding a framed certificate in front of the ECIC 2026 backdrop",
+    "imagePlaceholder": "Approved ECIC 2026 photograph for the page header"
+  },
+  "about": {
+    "heading": "What is the Edunotech Community Innovation Challenge?",
+    "paragraphs": [
+      "The Edunotech Community Innovation Challenge is a community-focused initiative powered by Edunotech.",
+      "It is built on the belief that young people should not be viewed only as future contributors to society. They can also begin developing solutions to real challenges within their communities today.",
+      "Through ECIC, students are encouraged to observe their environments, identify problems, think critically, explore possible solutions, and communicate their ideas.",
+      "The challenge provides a platform for students to move beyond discussing problems and begin taking responsibility for understanding and addressing them."
+    ],
+    "pullQuote": "ECIC is not simply about building technology. It is about developing people who can think, create, and contribute meaningfully."
+  },
+  "why": [
+    {
+      "icon": "target",
+      "title": "Developing Problem Solvers",
+      "text": "Encouraging students to become more observant, analytical, and solution-oriented."
+    },
+    {
+      "icon": "lightbulb",
+      "title": "Connecting Ideas to Reality",
+      "text": "Helping participants move from identifying challenges to developing practical and relevant solutions."
+    },
+    {
+      "icon": "megaphone",
+      "title": "Building Confidence and Responsibility",
+      "text": "Creating opportunities for students to communicate their ideas, collaborate, and take initiative."
+    },
+    {
+      "icon": "users",
+      "title": "Encouraging Community Innovation",
+      "text": "Promoting the idea that meaningful solutions can emerge from a deeper understanding of local challenges."
+    }
+  ],
+  "stages": [
+    {
+      "title": "Problem Discovery and Learning",
+      "paragraphs": [
+        "Students are introduced to problem-solving, innovation, and the importance of understanding real challenges.",
+        "They explore their environments and identify problems that may be worth addressing."
+      ]
+    },
+    {
+      "title": "Idea Development and Selection",
+      "paragraphs": [
+        "Students develop their ideas and communicate their proposed solutions.",
+        "Submitted ideas are reviewed through the challenge's selection process, with promising teams or participants progressing to the next stage."
+      ]
+    },
+    {
+      "title": "Grand Finale",
+      "paragraphs": [
+        "Selected innovators present their solutions before an audience and an evaluation panel.",
+        "The finale provides an opportunity to showcase ideas, recognise promising innovators, and encourage continued development."
+      ]
+    }
+  ],
+  "stagesNote": "The precise format, eligibility requirements, selection criteria, and award details are confirmed for each edition.",
+  "edition2026": {
+    "heading": "The Journey So Far: ECIC 2026",
+    "paragraphs": [
+      "The 2026 edition of the Edunotech Community Innovation Challenge brought together students through a journey centred on problem identification, idea development, and practical innovation.",
+      "The programme culminated in its Grand Finale on 26 September 2026.",
+      "Beyond the final presentations, the intention is to continue supporting the innovators as they develop their ideas, learn from mentors, and explore opportunities for growth."
+    ],
+    "finaleDate": "2026-09-26"
+  },
+  "stats": [
+    {
+      "label": "Schools reached",
+      "value": ""
+    },
+    {
+      "label": "Students engaged",
+      "value": ""
+    },
+    {
+      "label": "Innovators selected",
+      "value": ""
+    },
+    {
+      "label": "Solutions or ideas presented",
+      "value": ""
+    },
+    {
+      "label": "Partners and volunteers involved",
+      "value": ""
+    }
+  ],
+  "gallery": [
+    {
+      "src": "/images/ecic/ecic-2026-plaque-presentation.webp",
+      "alt": "A student receiving an award plaque on stage at ECIC 2026",
+      "caption": "Award presentation, ECIC 2026"
+    },
+    {
+      "src": "/images/ecic/ecic-2026-award-handover.webp",
+      "alt": "An award plaque being presented to a student at ECIC 2026",
+      "caption": "Award presentation, ECIC 2026"
+    },
+    {
+      "src": "/images/ecic/ecic-2026-group-photo-4.webp",
+      "alt": "Two students in white shirts standing with a guest at the ECIC 2026 backdrop",
+      "caption": "Participants and guests, ECIC 2026"
+    },
+    {
+      "src": "/images/ecic/ecic-2026-group-photo-1.webp",
+      "alt": "Three people smiling in front of the ECIC 2026 backdrop",
+      "caption": "ECIC 2026"
+    },
+    {
+      "src": "/images/ecic/ecic-2026-group-photo-2.webp",
+      "alt": "Three people posing cheerfully in front of the ECIC 2026 backdrop",
+      "caption": "ECIC 2026"
+    },
+    {
+      "src": "/images/ecic/ecic-2026-group-photo-3.webp",
+      "alt": "Two guests standing in front of the ECIC 2026 backdrop",
+      "caption": "ECIC 2026"
+    },
+    {
+      "src": "/images/ecic/ecic-2026-portrait-2.webp",
+      "alt": "A guest with arms outstretched in front of the ECIC 2026 backdrop",
+      "caption": "ECIC 2026"
+    },
+    {
+      "src": "/images/ecic/ecic-2026-portrait.webp",
+      "alt": "A smiling attendee in front of the ECIC 2026 backdrop",
+      "caption": "ECIC 2026"
+    }
+  ],
+  "galleryPlaceholders": [
+    "School engagements",
+    "Student activities",
+    "Innovation and pitch development",
+    "Mentorship or preparation activities",
+    "Grand Finale",
+    "Award presentations",
+    "Group photographs"
+  ],
+  "announcements": [],
+  "edition2027": {
+    "heading": "The Next Chapter: ECIC 2027",
+    "paragraphs": [
+      "We are looking ahead to the next edition of the Edunotech Community Innovation Challenge.",
+      "ECIC 2027 will build on the foundation of the previous edition, with a continued commitment to encouraging young people to identify problems, think creatively, and develop practical solutions.",
+      "We also believe the ECIC community should grow beyond the students who participate as innovators.",
+      "Previous innovators, volunteers, mentors, educators, organisations, and other interested individuals can contribute to the planning and development of future editions."
+    ]
+  },
+  "interestCategories": [
+    "School participation",
+    "Innovator or student participation",
+    "Mentorship",
+    "Volunteering",
+    "Planning and organising",
+    "Sponsorship",
+    "Institutional partnership",
+    "Media and communications",
+    "Other support"
+  ],
+  "partnership": {
+    "heading": "Help Us Build a Generation That Creates Solutions.",
+    "text": "ECIC creates opportunities for organisations and individuals to contribute to student development, innovation, and community problem-solving. We welcome conversations with organisations interested in supporting the initiative through:",
+    "ways": [
+      {
+        "icon": "hand-coins",
+        "title": "Financial sponsorship"
+      },
+      {
+        "icon": "monitor",
+        "title": "Technology and equipment support"
+      },
+      {
+        "icon": "users",
+        "title": "Mentorship and expertise"
+      },
+      {
+        "icon": "school",
+        "title": "Institutional collaboration"
+      },
+      {
+        "icon": "graduation",
+        "title": "Student development opportunities"
+      },
+      {
+        "icon": "megaphone",
+        "title": "Media and communications"
+      },
+      {
+        "icon": "map-pin",
+        "title": "Venue and logistics support"
+      }
+    ],
+    "closing": "We believe that building a generation of problem solvers requires shared commitment."
+  },
+  "footerStatement": "Powered by Edunotech. Building a generation that sees problems, thinks critically, and creates solutions."
+}

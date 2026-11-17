@@ -1,0 +1,14 @@
+---
+interface Step { title: string; text: string; }
+interface Props { steps: Step[]; label: string; }
+const { steps, label } = Astro.props;
+---
+<ol class:list={['process', { 'process--5': steps.length === 5 }]} aria-label={label}>
+  {steps.map((s, i) => (
+    <li class="process__step">
+      <span class="process__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+      <h3>{s.title}</h3>
+      <p>{s.text}</p>
+    </li>
+  ))}
+</ol>

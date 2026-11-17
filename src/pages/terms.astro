@@ -1,0 +1,37 @@
+---
+import Legal from '../layouts/Legal.astro';
+import Placeholder from '../components/Placeholder.astro';
+import site from '../data/site.json';
+const email = site.contact.email;
+---
+<Legal title="Terms of Use" description="The terms that apply when you use the Edunotech website." updated="[Date of approval]">
+  <p>These terms apply to your use of this website. By using the site, you agree to them. If you do not agree, please do not use the site.</p>
+
+  <h2>About the website</h2>
+  <p>This website provides information about Edunotech, its services, its educational programmes and its community initiatives, including the Edunotech Community Innovation Challenge (ECIC).</p>
+
+  <h2>Information on this site</h2>
+  <p>We work to keep the content accurate and up to date, but it is provided for general information only. It does not form an offer or a contract. The scope, timelines and price of any service are agreed separately with each client in writing.</p>
+
+  <h2>Intellectual property</h2>
+  <p>The Edunotech name, logo, text, graphics and other content on this site belong to Edunotech or are used with permission. You may view and share pages for personal, non-commercial purposes. You may not copy, adapt or republish the content for commercial use without our written permission.</p>
+
+  <h2>Acceptable use</h2>
+  <ul>
+    <li>Do not use the site or its forms to send spam, harmful code or unlawful content.</li>
+    <li>Do not try to gain unauthorised access to the site or the systems behind it.</li>
+    <li>Only submit information that is accurate and that you are entitled to share.</li>
+  </ul>
+
+  <h2>Links to other websites</h2>
+  <p>We may link to other websites. We are not responsible for their content or how they handle your information.</p>
+
+  <h2>Liability</h2>
+  <p>To the extent the law allows, Edunotech is not liable for any loss arising from use of this website or reliance on its content. Nothing in these terms limits liability that cannot be limited by law.</p>
+
+  <h2>Governing law</h2>
+  <p>These terms are governed by the laws of the Federal Republic of Nigeria. <Placeholder label="Confirm governing law and jurisdiction" /></p>
+
+  <h2>Contact</h2>
+  <p>Questions about these terms can be sent to {email ? <a href={`mailto:${email}`}>{email}</a> : <Placeholder label="Official email" />}.</p>
+</Legal>

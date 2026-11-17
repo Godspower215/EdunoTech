@@ -1,0 +1,44 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Icon from '../../components/Icon.astro';
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('insights', ({ data }) => !data.draft)).sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+  );
+  if (posts.length === 0) return [];
+  return [
+    { params: { slug: undefined }, props: { posts, post: null } },
+    ...posts.map((post) => ({ params: { slug: post.id }, props: { posts, post } })),
+  ];
+}
+
+const { posts, post } = Astro.props as any;
+const fmt = (d: Date) => d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+const rendered = post ? await render(post) : null;
+const Content = rendered?.Content;
+---
+{post ? (
+  <Base title={`${post.data.title} | Edunotech`} description={post.data.description} image={post.data.image}>
+    <PageHero eyebrow={`${post.data.category} · ${fmt(post.data.date)}`} title={post.data.title} text={post.data.description} />
+    <article class="section"><div class="container container--narrow prose">{Content && <Content />}</div></article>
+  </Base>
+) : (
+  <Base title="Insights and Resources | Edunotech" description="Articles, announcements, project updates and educational resources from Edunotech.">
+    <PageHero eyebrow="Insights" title="Insights and Resources" text="Articles, announcements, project updates and educational resources from Edunotech." />
+    <section class="section">
+      <div class="container grid grid-3">
+        {posts.map((p: any) => (
+          <a class="card card--link" href={`/insights/${p.id}`} style="text-decoration:none;color:inherit">
+            <p class="eyebrow">{p.data.category}</p>
+            <h3>{p.data.title}</h3>
+            <p>{p.data.description}</p>
+            <span class="text-link">Read <Icon name="arrow-right" size={16} /></span>
+          </a>
+        ))}
+      </div>
+    </section>
+  </Base>
+)}

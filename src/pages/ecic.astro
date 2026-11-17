@@ -1,0 +1,247 @@
+---
+import Base from '../layouts/Base.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import ImageSlot from '../components/ImageSlot.astro';
+import Placeholder from '../components/Placeholder.astro';
+import EcicInterestForm from '../components/EcicInterestForm.astro';
+import ecic from '../data/ecic.json';
+
+type Photo = { src: string; alt: string; caption?: string };
+type Announcement = { date: string; title: string; text: string; link?: string };
+const gallery = ecic.gallery as Photo[];
+const announcements = ecic.announcements as Announcement[];
+const fmtDate = (d: string) => new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+<Base
+  title="Edunotech Community Innovation Challenge | ECIC"
+  description="Explore ECIC, a student-focused innovation initiative encouraging young people to identify community problems and develop solutions."
+  footerStatement={ecic.footerStatement}
+>
+  <!-- Hero -->
+  <section class="ecic-hero on-dark">
+    <div class="container ecic-hero__grid">
+      <div>
+        <p class="ecic-kicker"><span class="ecic-mark">ECIC</span><span>Edunotech Community Innovation Challenge</span></p>
+        <h1>{ecic.hero.headline}</h1>
+        <p class="lead">{ecic.hero.text}</p>
+        <div class="btn-row">
+          <Button href="#partner" variant="lime" arrow event="cta_ecic_partner">Partner With ECIC</Button>
+          <Button href="#how-it-works" variant="ghost-light">Explore the Challenge</Button>
+        </div>
+        <p class="powered">A community initiative powered by <a href="/">Edunotech</a></p>
+      </div>
+      <ImageSlot src={ecic.hero.image} alt={ecic.hero.imageAlt} need={ecic.hero.imagePlaceholder} ratio="4 / 5" eager class="ecic-hero__img" />
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="section">
+    <div class="container split split--top">
+      <div>
+        <p class="eyebrow">About ECIC</p>
+        <h2>{ecic.about.heading}</h2>
+        <blockquote class="pull">{ecic.about.pullQuote}</blockquote>
+      </div>
+      <div class="prose">{ecic.about.paragraphs.map((p) => <p>{p}</p>)}</div>
+    </div>
+  </section>
+
+  <!-- Why it matters -->
+  <section class="section section--neutral">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Why ECIC matters</p>
+        <h2>Building young people who see problems and act on them.</h2>
+      </div>
+      <div class="grid grid-4">
+        {ecic.why.map((w) => (
+          <article class="card">
+            <span class="icon-badge"><Icon name={w.icon} /></span>
+            <h3>{w.title}</h3>
+            <p>{w.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="section" id="how-it-works">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">How the challenge works</p>
+        <h2>A three-stage journey.</h2>
+      </div>
+      <ol class="journey">
+        {ecic.stages.map((s, i) => (
+          <li class="journey__stage">
+            <span class="journey__label">Stage {i + 1}</span>
+            <h3>{s.title}</h3>
+            {s.paragraphs.map((p) => <p>{p}</p>)}
+          </li>
+        ))}
+      </ol>
+      <p class="muted small-note">{ecic.stagesNote}</p>
+    </div>
+  </section>
+
+  <!-- 2026 -->
+  <section class="section section--dark" id="ecic-2026">
+    <div class="container">
+      <div class="split split--top">
+        <div>
+          <p class="eyebrow">ECIC 2026</p>
+          <h2>{ecic.edition2026.heading}</h2>
+        </div>
+        <div>
+          {ecic.edition2026.paragraphs.map((p) => <p>{p}</p>)}
+          <p class="finale"><Icon name="calendar" size={20} /> Grand Finale held on <time datetime={ecic.edition2026.finaleDate}>{fmtDate(ecic.edition2026.finaleDate)}</time></p>
+        </div>
+      </div>
+
+      <h3 class="sub">ECIC 2026 in numbers</h3>
+      <dl class="stats">
+        {ecic.stats.map((s) => (
+          <div class="stat">
+            <dt>{s.label}</dt>
+            <dd>{s.value ? s.value : <Placeholder label="NUMBER" />}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <h3 class="sub">Gallery</h3>
+      {gallery.length > 0 ? (
+        <ul class="gallery">
+          {gallery.map((g) => (
+            <li>
+              <figure>
+                <img src={g.src} alt={g.alt} loading="lazy" decoding="async" />
+                {g.caption && <figcaption>{g.caption}</figcaption>}
+              </figure>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <ul class="gallery">
+          {ecic.galleryPlaceholders.map((g) => (
+            <li><ImageSlot need={`ECIC 2026, ${g.toLowerCase()}`} ratio="4 / 3" /></li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </section>
+
+  {announcements.length > 0 && (
+    <section class="section section--tight" id="announcements">
+      <div class="container container--narrow">
+        <p class="eyebrow">Announcements</p>
+        <h2>ECIC news</h2>
+        <ul class="announcements">
+          {announcements.map((a) => (
+            <li>
+              <time datetime={a.date}>{fmtDate(a.date)}</time>
+              <h3>{a.title}</h3>
+              <p>{a.text}</p>
+              {a.link && <a class="text-link" href={a.link}>Read more <Icon name="arrow-right" size={16} /></a>}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <!-- 2027 -->
+  <section class="section section--neutral" id="ecic-2027">
+    <div class="container split split--top">
+      <div class="sticky-col">
+        <p class="eyebrow">ECIC 2027</p>
+        <h2>{ecic.edition2027.heading}</h2>
+        {ecic.edition2027.paragraphs.map((p) => <p>{p}</p>)}
+        <p class="muted small-note">Dates, venue, eligibility rules and awards for ECIC 2027 will be announced here once confirmed.</p>
+        <div class="btn-row"><Button href="#partner" variant="secondary">Become a Partner</Button></div>
+      </div>
+      <div class="form-panel" id="interest">
+        <h3>Express Interest in ECIC 2027</h3>
+        <p class="muted">Tell us how you would like to be involved. We will contact you as planning develops.</p>
+        <EcicInterestForm />
+      </div>
+    </div>
+  </section>
+
+  <!-- Partnership -->
+  <section class="section" id="partner">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Partnership opportunities</p>
+        <h2>{ecic.partnership.heading}</h2>
+        <p>{ecic.partnership.text}</p>
+      </div>
+      <ul class="ways">
+        {ecic.partnership.ways.map((w) => (
+          <li><span class="icon-badge"><Icon name={w.icon} /></span>{w.title}</li>
+        ))}
+      </ul>
+      <p class="closing">{ecic.partnership.closing}</p>
+      <div class="btn-row"><Button href="/contact?enquiry=ecic-sponsor#enquiry-form" arrow event="cta_ecic_partnership">Discuss an ECIC Partnership</Button></div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .ecic-hero { background: var(--forest); color: var(--white); padding-block: clamp(3rem, 7vw, 6rem); position: relative; overflow: hidden; }
+  .ecic-hero::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(600px 400px at 0% 100%, rgba(183, 217, 87, 0.16), transparent 70%);
+  }
+  .ecic-hero__grid { position: relative; display: grid; gap: clamp(2.5rem, 5vw, 4rem); align-items: center; }
+  @media (min-width: 960px) { .ecic-hero__grid { grid-template-columns: 1.2fr 0.8fr; } }
+  .ecic-hero h1 { color: var(--white); max-width: 20ch; }
+  .ecic-hero .lead { color: var(--on-dark-muted); max-width: 58ch; }
+  .ecic-kicker { display: flex; align-items: center; gap: 0.75rem; font-weight: 700; color: var(--white); margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .ecic-mark { background: var(--lime); color: var(--forest); font-weight: 900; letter-spacing: 0.08em; padding: 0.35rem 0.7rem; border-radius: 6px; }
+  .powered { margin-top: 2rem; font-size: 0.92rem; color: var(--on-dark-muted); }
+  .powered a { color: var(--lime); font-weight: 700; }
+  .ecic-hero :global(.ecic-hero__img) { border: 1px solid rgba(183, 217, 87, 0.25); }
+
+  .pull { margin: 2rem 0 0; padding: 1.5rem 1.5rem 1.5rem 1.75rem; background: var(--lime); color: var(--forest); border-radius: var(--radius); font-size: var(--step-1); font-weight: 700; line-height: 1.45; }
+
+  .journey { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+  @media (min-width: 900px) { .journey { grid-template-columns: repeat(3, 1fr); } }
+  .journey__stage { position: relative; padding: 2rem 1.75rem; border-radius: var(--radius); background: var(--neutral); border-top: 5px solid var(--emerald); }
+  .journey__stage:nth-child(2) { border-top-color: #4ea152; }
+  .journey__stage:nth-child(3) { border-top-color: var(--lime); background: var(--forest); }
+  .journey__stage:nth-child(3) h3 { color: var(--white); }
+  .journey__stage:nth-child(3) p { color: var(--on-dark-muted); }
+  .journey__stage:nth-child(3) .journey__label { color: var(--lime); }
+  .journey__label { display: block; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--emerald-ink); margin-bottom: 0.75rem; }
+  .journey__stage p { color: var(--muted); font-size: 0.97rem; }
+  .small-note { font-size: 0.92rem; margin-top: 1.25rem; }
+
+  .finale { display: inline-flex; gap: 0.6rem; align-items: center; padding: 0.75rem 1rem; border-radius: 10px; background: rgba(183, 217, 87, 0.12); color: var(--white) !important; font-weight: 700; }
+  .finale :global(svg) { color: var(--lime); }
+  .sub { color: var(--lime) !important; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; margin: clamp(3rem, 6vw, 4rem) 0 1.25rem; }
+  .stats { margin: 0; display: grid; gap: 1px; background: rgba(255,255,255,0.12); border-radius: var(--radius); overflow: hidden; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); }
+  .stat { background: var(--forest); padding: 1.5rem; display: flex; flex-direction: column-reverse; gap: 0.5rem; }
+  .stat dt { color: var(--on-dark-muted); font-size: 0.95rem; }
+  .stat dd { margin: 0; font-size: var(--step-3); font-weight: 800; color: var(--white); line-height: 1; }
+  .stat dd :global(.placeholder) { font-size: 0.9rem; }
+  .gallery { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); }
+  .gallery figure { margin: 0; }
+  .gallery img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-sm); }
+  .gallery figcaption { font-size: 0.88rem; color: var(--on-dark-muted); margin-top: 0.5rem; }
+
+  .announcements { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+  .announcements li { border: 1px solid var(--grey); border-radius: var(--radius); padding: 1.5rem; }
+  .announcements time { font-size: 0.85rem; font-weight: 700; color: var(--emerald-ink); }
+
+  .sticky-col { position: sticky; top: 100px; }
+  @media (max-width: 899px) { .sticky-col { position: static; } }
+  .form-panel h3 { font-size: var(--step-2); margin-bottom: 0.4rem; }
+  .form-panel > p { margin-bottom: 1.5rem; }
+
+  .ways { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); }
+  .ways li { display: flex; align-items: center; gap: 0.9rem; padding: 1rem 1.1rem; border: 1px solid var(--grey); border-radius: var(--radius); font-weight: 700; color: var(--forest); }
+  .ways .icon-badge { margin: 0; width: 42px; height: 42px; }
+  .closing { margin-top: 2rem; font-size: var(--step-1); font-weight: 700; color: var(--forest); max-width: 50ch; }
+</style>

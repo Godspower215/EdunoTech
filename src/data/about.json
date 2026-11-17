@@ -1,0 +1,73 @@
+{
+  "hero": {
+    "headline": "We believe in the power of knowledge applied.",
+    "text": "Edunotech exists to connect education, technology, and innovation with the practical challenges and opportunities around us."
+  },
+  "story": {
+    "heading": "Why Edunotech Exists",
+    "paragraphs": [
+      "Technology continues to change how people learn, work, communicate, and solve problems. Yet access to technology alone does not automatically translate into meaningful progress.",
+      "People also need the knowledge to understand it, the ability to apply it, and the mindset to recognise where it can create value.",
+      "This is the thinking behind Edunotech.",
+      "We see an opportunity to bridge the gap between what people learn, what technology makes possible, and what they can practically achieve.",
+      "Our work brings together educational experiences, digital solutions, artificial intelligence, and innovation to help individuals and organisations engage with technology more meaningfully.",
+      "We are building a company that does not simply introduce people to technology but helps them understand its possibilities and apply it with purpose."
+    ]
+  },
+  "mission": "To make technology and innovation more practical, accessible, and relevant by connecting education, digital capabilities, and real-world problem-solving.",
+  "vision": "To contribute to a world where individuals and organisations have the knowledge, capabilities, and technological tools to identify challenges, create solutions, and drive meaningful progress.",
+  "philosophy": {
+    "heading": "Technology is a means. Meaningful progress is the goal.",
+    "paragraphs": [
+      "We believe that the value of technology is best understood through what it enables people to achieve.",
+      "A website should improve access to information or services. AI should support better thinking, productivity, and decision-making. Education should develop the capacity to understand and respond to challenges.",
+      "For us, innovation does not begin with choosing a tool. It begins with understanding a need.",
+      "This philosophy influences how we approach our services, educational programmes, and innovation initiatives."
+    ],
+    "beliefs": [
+      "Technology is most valuable when applied to real problems.",
+      "Education should develop the ability to think, create, and execute.",
+      "Innovation begins with curiosity and a willingness to question existing systems.",
+      "People should be empowered to become creators and problem solvers, not merely consumers of technology.",
+      "Digital transformation should be practical and relevant to the people and organisations it serves.",
+      "AI should support human thinking, creativity, and productivity rather than replace responsible human judgement."
+    ]
+  },
+  "focus": [
+    { "icon": "monitor", "title": "Technology and Digital Solutions" },
+    { "icon": "brain", "title": "Artificial Intelligence and Intelligent Systems" },
+    { "icon": "graduation", "title": "Education and Capacity Development" },
+    { "icon": "lightbulb", "title": "Innovation and Problem-Solving" },
+    { "icon": "layers", "title": "Digital Transformation" },
+    { "icon": "microscope", "title": "Research and Product Development" }
+  ],
+  "values": [
+    { "icon": "rocket", "title": "Practical Innovation", "text": "We value ideas that can be translated into useful solutions and meaningful outcomes." },
+    { "icon": "book", "title": "Continuous Learning", "text": "We believe in curiosity, knowledge development, experimentation, and continuous improvement." },
+    { "icon": "target", "title": "Problem-Solving", "text": "We approach challenges as opportunities to understand, rethink, and create better ways of doing things." },
+    { "icon": "shield", "title": "Responsible Technology", "text": "We promote the thoughtful, ethical, and purposeful use of technology." },
+    { "icon": "users", "title": "Collaboration", "text": "We believe meaningful progress often comes through partnerships, shared knowledge, and collective effort." },
+    { "icon": "trending", "title": "Impact and Value Creation", "text": "We focus on creating value for individuals, institutions, businesses, and the wider community." }
+  ],
+  "team": {
+    "show": true,
+    "heading": "The People Behind Edunotech",
+    "members": [
+      {
+        "name": "Godspower Olapade",
+        "role": "Founder, Edunotech",
+        "photo": "",
+        "photoAlt": "Portrait of Godspower Olapade",
+        "bio": [
+          "Godspower Olapade is the founder of Edunotech and a Computer Science student at Covenant University. His interests span technology, education, artificial intelligence, digital innovation, and human-centred problem-solving.",
+          "His work is driven by an interest in how technology and education can be applied to address practical challenges and create opportunities, particularly for young people and underserved communities.",
+          "His broader vision is to contribute to a generation that does not simply consume technology but understands how to use knowledge, creativity, and innovation to build solutions."
+        ]
+      }
+    ]
+  },
+  "cta": {
+    "heading": "Interested in what we are building?",
+    "text": "We are always open to meaningful conversations with institutions, organisations, businesses, and individuals who share an interest in education, technology, and innovation."
+  }
+}

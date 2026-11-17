@@ -1,0 +1,73 @@
+{
+  "hero": {
+    "headline": "Learn to see problems differently. Learn to create solutions.",
+    "text": "The Problem-Solving Experience is powered by Edunotech. It helps students develop observation, critical thinking, creativity, and practical problem-solving capabilities through guided learning and the purposeful application of technology."
+  },
+  "what": {
+    "heading": "It starts with a different way of thinking.",
+    "paragraphs": [
+      "Many problems remain unresolved not because solutions are impossible, but because people have not taken the time to observe, question, and understand them properly.",
+      "The Problem-Solving Experience introduces students to a more deliberate approach to thinking and action.",
+      "Participants learn to notice what could be better, investigate why a challenge exists, understand who is affected, generate possible ideas, assess their relevance, and explore how practical solutions can be developed.",
+      "Technology becomes part of this process where it is useful. It is not automatically treated as the answer to every problem.",
+      "The goal is to help students become more observant, thoughtful, creative, and responsible problem solvers."
+    ]
+  },
+  "principles": [
+    {
+      "quote": "A problem that is well understood is 50% solved.",
+      "text": "This is an Edunotech guiding principle, not a scientific measurement. It means careful investigation and understanding are the foundation for any meaningful solution."
+    },
+    {
+      "quote": "The problem determines the tool, not the other way around.",
+      "text": "The right solution should emerge from the needs of the problem. Sometimes technology is necessary. Sometimes a simpler, non-digital approach is more appropriate."
+    }
+  ],
+  "framework": [
+    { "title": "Feeling", "text": "Recognising that something could be better or that an unmet need may exist." },
+    { "title": "Observation", "text": "Paying attention to people, environments, behaviour, processes, and recurring difficulties." },
+    { "title": "Understanding", "text": "Investigating what is happening, why it happens, and who is affected." },
+    { "title": "Ideation", "text": "Generating possible approaches and exploring different ways to address the problem." },
+    { "title": "Idea Filtering", "text": "Evaluating ideas based on relevance, feasibility, impact, cost, resources, and sustainability." },
+    { "title": "Validation", "text": "Testing whether the problem and proposed solution are supported by evidence and real user needs." },
+    { "title": "Solution Design", "text": "Choosing an appropriate approach and planning how it can work." },
+    { "title": "Execution", "text": "Developing, testing, improving, and implementing the solution." },
+    { "title": "Impact", "text": "Assessing the value created and identifying opportunities for improvement." }
+  ],
+  "technology": {
+    "heading": "Technology should serve the solution.",
+    "paragraphs": [
+      "Participants explore how technology can help them investigate problems, develop ideas, and create solutions.",
+      "Depending on the challenge, this may involve artificial intelligence, coding, software development, digital design, data, automation, cybersecurity, or other emerging technologies.",
+      "They also learn that responsible technology use requires independent thinking, verification, privacy awareness, and an understanding of limitations."
+    ],
+    "tags": ["Artificial intelligence", "Coding", "Software development", "Digital design", "Data", "Automation", "Cybersecurity", "Emerging technologies"]
+  },
+  "audience": {
+    "heading": "Who is it for?",
+    "paragraphs": [
+      "The primary audience is students in tertiary institutions across different academic disciplines.",
+      "The experience is not restricted to students studying Computer Science, engineering, or other technology-related courses. Students from education, health sciences, business, social sciences, arts, sciences, and other disciplines can relate the framework to challenges within their own environments.",
+      "The programme may also be adapted for other learning environments and audiences."
+    ],
+    "disciplines": ["Education", "Health sciences", "Business", "Social sciences", "Arts", "Sciences", "Engineering", "Computing"]
+  },
+  "outcomes": [
+    "Stronger observation and critical-thinking abilities",
+    "The ability to investigate problems rather than make assumptions",
+    "Independent and creative thinking",
+    "Better idea development and evaluation",
+    "An understanding of how to validate needs and proposed solutions",
+    "Practical knowledge of relevant technologies",
+    "Better judgement when selecting tools and approaches",
+    "Confidence in developing and presenting solutions",
+    "An increased sense of responsibility towards solving real problems"
+  ],
+  "institutional": {
+    "heading": "Bring the Problem-Solving Experience to Your Institution.",
+    "paragraphs": [
+      "Edunotech welcomes conversations with universities, polytechnics, colleges of education, and other institutions interested in helping students develop practical problem-solving and technology capabilities.",
+      "The experience can be adapted to institutional needs, student populations, available resources, and preferred delivery formats."
+    ]
+  }
+}

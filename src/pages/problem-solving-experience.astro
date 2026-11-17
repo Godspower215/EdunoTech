@@ -1,0 +1,163 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import CtaBand from '../components/CtaBand.astro';
+import pse from '../data/pse.json';
+
+const pad = (n: number) => String(n).padStart(2, '0');
+const courseLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Course',
+  name: 'The Problem-Solving Experience',
+  description: pse.hero.text,
+  provider: { '@type': 'Organization', name: 'Edunotech' },
+};
+---
+<Base
+  title="The Problem-Solving Experience | Edunotech"
+  description="Discover an educational experience helping students develop critical thinking, problem-solving, and practical technology capabilities."
+  jsonLd={[courseLd]}
+>
+  <PageHero eyebrow="Programmes · Powered by Edunotech" title={pse.hero.headline} text={pse.hero.text}>
+    <div class="btn-row">
+      <Button href="/contact?enquiry=pse#enquiry-form" arrow event="cta_pse_institution">Bring the Experience to Your Institution</Button>
+      <Button href="#framework" variant="secondary">Explore the Framework</Button>
+    </div>
+  </PageHero>
+
+  <!-- What it is -->
+  <section class="section">
+    <div class="container split split--top">
+      <div>
+        <p class="eyebrow">What is the experience?</p>
+        <h2>{pse.what.heading}</h2>
+        <p class="not-list">Not a technology seminar. Not a coding class. Not a conventional entrepreneurship workshop. A structured experience that builds the mindset and practical ability to identify, understand, and solve problems.</p>
+      </div>
+      <div class="prose">
+        {pse.what.paragraphs.map((p, i) => <p class={i === pse.what.paragraphs.length - 1 ? 'goal' : ''}>{p}</p>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Principles -->
+  <section class="section section--neutral section--tight">
+    <div class="container">
+      <p class="eyebrow">Guiding philosophy</p>
+      <div class="grid grid-2">
+        {pse.principles.map((pr) => (
+          <figure class="principle">
+            <Icon name="quote" size={28} />
+            <blockquote>{pr.quote}</blockquote>
+            <figcaption>{pr.text}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Framework -->
+  <section class="section section--dark" id="framework">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">The framework</p>
+        <h2>From a feeling that something could be better, to real impact.</h2>
+        <p>Nine stages that take participants from noticing a problem to delivering and assessing a solution.</p>
+      </div>
+      <ol class="path" aria-label="Problem-solving framework, nine stages in order">
+        {pse.framework.map((f, i) => (
+          <li class="path__stage">
+            <span class="path__num">{pad(i + 1)}</span>
+            <span class="path__title">{f.title}</span>
+            {i < pse.framework.length - 1 && <span class="path__arrow" aria-hidden="true"><Icon name="arrow-right" size={18} /></span>}
+          </li>
+        ))}
+      </ol>
+      <div class="stages">
+        {pse.framework.map((f, i) => (
+          <article class="stage">
+            <span class="stage__num">{pad(i + 1)}</span>
+            <h3>{f.title}</h3>
+            <p>{f.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Technology -->
+  <section class="section">
+    <div class="container split">
+      <div>
+        <p class="eyebrow">Technology as an enabler</p>
+        <h2>{pse.technology.heading}</h2>
+        {pse.technology.paragraphs.map((p) => <p>{p}</p>)}
+      </div>
+      <div class="tech-panel">
+        <p class="tech-panel__label">Depending on the challenge, participants may work with</p>
+        <ul class="tag-list">{pse.technology.tags.map((t) => <li>{t}</li>)}</ul>
+        <p class="tech-panel__label mt">And they learn to apply it responsibly</p>
+        <ul class="check-list">
+          <li><Icon name="check" size={20} /><span>Independent thinking</span></li>
+          <li><Icon name="check" size={20} /><span>Verification</span></li>
+          <li><Icon name="check" size={20} /><span>Privacy awareness</span></li>
+          <li><Icon name="check" size={20} /><span>Understanding of limitations</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Audience + outcomes -->
+  <section class="section section--neutral">
+    <div class="container split split--top">
+      <div>
+        <p class="eyebrow">Who is it for?</p>
+        <h2>Students in tertiary institutions, across every discipline.</h2>
+        {pse.audience.paragraphs.map((p) => <p>{p}</p>)}
+        <ul class="tag-list disciplines">{pse.audience.disciplines.map((d) => <li>{d}</li>)}</ul>
+      </div>
+      <div class="outcomes">
+        <h3>Expected learning outcomes</h3>
+        <p class="muted">Participants should develop:</p>
+        <ul class="check-list">
+          {pse.outcomes.map((o) => <li><Icon name="check" size={20} /><span>{o}</span></li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title={pse.institutional.heading} text={pse.institutional.paragraphs.join(' ')}>
+    <Button href="/contact?enquiry=pse#enquiry-form" variant="lime" arrow event="cta_pse_partner">Partner With Edunotech</Button>
+  </CtaBand>
+</Base>
+
+<style>
+  .not-list { font-weight: 600; color: var(--forest); border-left: 4px solid var(--lime); padding-left: 1rem; margin-top: 1.5rem; }
+  .goal { font-weight: 700; color: var(--forest); font-size: var(--step-1); line-height: 1.5; }
+
+  .principle { margin: 0; background: var(--white); border-radius: var(--radius); padding: clamp(1.5rem, 4vw, 2.5rem); color: var(--emerald); }
+  .principle blockquote { margin: 1rem 0; font-size: var(--step-2); font-weight: 800; line-height: 1.25; letter-spacing: -0.02em; color: var(--forest); }
+  .principle figcaption { color: var(--muted); font-size: 0.97rem; }
+
+  .path { list-style: none; margin: 0 0 2.5rem; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+  .path__stage { display: inline-flex; align-items: center; gap: 0.5rem; }
+  .path__num { font-size: 0.72rem; font-weight: 800; color: var(--forest); background: var(--lime); border-radius: 999px; padding: 0.15rem 0.45rem; }
+  .path__title { font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; font-size: 0.86rem; color: var(--white); }
+  .path__arrow { color: var(--lime); opacity: 0.8; display: inline-flex; }
+  .stages { display: grid; gap: 1px; background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: var(--radius); overflow: hidden; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); }
+  .stage { background: var(--forest); padding: 1.6rem; }
+  .stage:last-child { background: #1a4a35; }
+  .stage__num { font-size: 0.8rem; font-weight: 800; color: var(--lime); }
+  .stage h3 { color: var(--white); margin: 0.4rem 0 0.4rem; }
+  .stage p { color: var(--on-dark-muted); font-size: 0.96rem; }
+
+  .tech-panel { background: var(--neutral); border-radius: var(--radius); padding: clamp(1.5rem, 4vw, 2.5rem); }
+  .tech-panel__label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; color: var(--emerald-ink); margin-bottom: 0.9rem; }
+  .tech-panel__label.mt { margin-top: 1.75rem; }
+  .tech-panel .check-list li { font-weight: 600; color: var(--forest); }
+
+  .disciplines { margin-top: 1.5rem; }
+  .outcomes { background: var(--white); border-radius: var(--radius); padding: clamp(1.5rem, 4vw, 2.5rem); }
+  .outcomes h3 { font-size: var(--step-2); }
+</style>

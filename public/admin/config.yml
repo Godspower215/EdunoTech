@@ -1,0 +1,287 @@
+# Edunotech content manager configuration (Sveltia CMS / Decap CMS format).
+# Before first use: replace OWNER/REPO with the GitHub repository that holds this site.
+# Sign-in: either a GitHub personal access token (simplest), or deploy the
+# sveltia-cms-auth Cloudflare Worker and set base_url. See HANDOVER.md.
+backend:
+  name: github
+  repo: Godspower215/edunotech
+  branch: main
+  # base_url: https://sveltia-cms-auth.<your-subdomain>.workers.dev
+
+media_folder: public/images/uploads
+public_folder: /images/uploads
+
+collections:
+  - name: settings
+    label: Site settings
+    format: json
+    files:
+      - name: site
+        label: Contact details, logo and social links
+        file: src/data/site.json
+        fields:
+          - { name: name, label: Company name, widget: string }
+          - { name: tagline, label: Tagline (footer), widget: string }
+          - { name: footerDescription, label: Footer description, widget: text }
+          - { name: logo, label: Logo (for light backgrounds), widget: image, required: false, hint: "Upload the official logo. Leave empty to show the temporary text wordmark." }
+          - { name: logoOnDark, label: Logo (for dark backgrounds, e.g. white version), widget: image, required: false }
+          - name: contact
+            label: Contact details
+            widget: object
+            hint: "Only enter verified, official details. Empty fields show a visible placeholder."
+            fields:
+              - { name: email, label: Official email, widget: string, required: false }
+              - { name: phone, label: Business phone, widget: string, required: false, hint: "International format, e.g. +234 ..." }
+              - { name: whatsapp, label: WhatsApp business number, widget: string, required: false, hint: "International format. When set, a WhatsApp button appears on every page." }
+              - { name: address, label: Office address, widget: string, required: false }
+          - name: socials
+            label: Social media links
+            widget: list
+            required: false
+            fields:
+              - { name: platform, label: Platform name, widget: string }
+              - { name: url, label: Profile URL, widget: string }
+          - name: analytics
+            label: Analytics
+            widget: object
+            fields:
+              - { name: cloudflareToken, label: Cloudflare Web Analytics token, widget: string, required: false }
+
+  - name: pages
+    label: Page content
+    format: json
+    files:
+      - name: home
+        label: Homepage
+        file: src/data/home.json
+        fields:
+          - name: hero
+            label: Hero
+            widget: object
+            fields:
+              - { name: eyebrow, label: Small label, widget: string }
+              - { name: headline, label: Headline, widget: string }
+              - { name: text, label: Supporting text, widget: text }
+              - { name: image, label: Hero photo, widget: image, required: false }
+              - { name: imageAlt, label: Photo description (alt text), widget: string, required: false }
+              - { name: imagePlaceholder, label: Placeholder note (shown until a photo is added), widget: string }
+          - name: intro
+            label: Introduction
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: paragraphs, label: Paragraphs, widget: list, field: { name: p, label: Paragraph, widget: text } }
+          - name: whatWeDo
+            label: What we do (cards come from Services)
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: text, label: Text, widget: text }
+          - name: approach
+            label: How we approach technology
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - name: steps
+                label: Steps
+                widget: list
+                fields:
+                  - { name: title, label: Title, widget: string }
+                  - { name: text, label: Text, widget: text }
+          - name: programme
+            label: Featured programme
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: lead, label: Lead question, widget: text }
+              - { name: paragraphs, label: Paragraphs, widget: list, field: { name: p, label: Paragraph, widget: text } }
+          - name: ecic
+            label: Featured ECIC block
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: paragraphs, label: Paragraphs, widget: list, field: { name: p, label: Paragraph, widget: text } }
+              - { name: image, label: Photo, widget: image, required: false }
+              - { name: imageAlt, label: Photo description (alt text), widget: string, required: false }
+              - { name: imagePlaceholder, label: Placeholder note, widget: string }
+          - name: audiences
+            label: Who we work with
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: text, label: Text, widget: text }
+              - name: items
+                label: Audiences
+                widget: list
+                fields:
+                  - { name: icon, label: Icon, widget: select, options: [school, graduation, building, lightbulb, handshake, users, globe] }
+                  - { name: title, label: Title, widget: string }
+          - name: cta
+            label: Final call to action
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: text, label: Text, widget: text }
+
+      - name: services
+        label: Services
+        file: src/data/services.json
+        fields:
+          - name: hero
+            label: Page header
+            widget: object
+            fields:
+              - { name: headline, label: Headline, widget: string }
+              - { name: text, label: Supporting text, widget: text }
+          - name: services
+            label: Service categories
+            widget: list
+            fields:
+              - { name: id, label: Anchor id (no spaces), widget: string }
+              - { name: icon, label: Icon, widget: select, options: [brain, code, graduation, megaphone, database, lightbulb, monitor, layers, globe, users] }
+              - { name: title, label: Title, widget: string }
+              - { name: homeTitle, label: Title on homepage card (optional), widget: string, required: false }
+              - { name: cardText, label: Homepage card text, widget: text }
+              - { name: cardLink, label: Homepage card link label, widget: string }
+              - { name: cardHref, label: Homepage card link (optional, defaults to this section), widget: string, required: false }
+              - { name: short, label: Short description, widget: text }
+              - { name: detail, label: Detailed description, widget: list, field: { name: p, label: Paragraph, widget: text } }
+              - { name: listLabel, label: List heading, widget: string, required: false }
+              - { name: items, label: List items, widget: list, required: false, field: { name: item, label: Item, widget: string } }
+              - { name: idealClients, label: Ideal clients, widget: text, required: false }
+              - { name: note, label: Note, widget: text, required: false }
+              - { name: featuredProgramme, label: Show Problem-Solving Experience feature, widget: boolean, required: false, default: false }
+              - { name: cta, label: Button label, widget: string }
+              - { name: enquiry, label: Enquiry type for the contact form, widget: select, options: [general, web, ai, education, partnership, pse, ecic-sponsor, ecic-participation, other] }
+          - name: dires
+            label: DIRES product block
+            widget: object
+            hint: "Only switch on once DIRES details are verified and approved for publication."
+            fields:
+              - { name: show, label: Show on the website, widget: boolean, default: false }
+              - { name: name, label: Product name, widget: string }
+              - { name: label, label: Short label, widget: string }
+              - { name: status, label: Availability status, widget: string, required: false, hint: "e.g. In development, Pilot, Available" }
+              - { name: description, label: Description, widget: text, required: false }
+              - { name: image, label: Screenshot, widget: image, required: false }
+              - { name: imageAlt, label: Screenshot description, widget: string, required: false }
+          - name: process
+            label: How to engage
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - name: steps
+                label: Steps
+                widget: list
+                fields:
+                  - { name: title, label: Title, widget: string }
+                  - { name: text, label: Text, widget: text }
+          - name: cta
+            label: Final call to action
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: text, label: Text, widget: text }
+
+      - name: about
+        label: About Us (team and leadership)
+        file: src/data/about.json
+        fields:
+          - name: hero
+            label: Page header
+            widget: object
+            fields:
+              - { name: headline, label: Headline, widget: string }
+              - { name: text, label: Supporting text, widget: text }
+          - name: story
+            label: Our story
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: paragraphs, label: Paragraphs, widget: list, field: { name: p, label: Paragraph, widget: text } }
+          - { name: mission, label: Mission, widget: text }
+          - { name: vision, label: Vision, widget: text }
+          - name: team
+            label: Team
+            widget: object
+            fields:
+              - { name: show, label: Show team section, widget: boolean }
+              - { name: heading, label: Heading, widget: string }
+              - name: members
+                label: Members
+                widget: list
+                hint: "Do not add qualifications, awards or history that have not been approved."
+                fields:
+                  - { name: name, label: Name, widget: string }
+                  - { name: role, label: Role, widget: string }
+                  - { name: photo, label: Photo, widget: image, required: false }
+                  - { name: photoAlt, label: Photo description, widget: string, required: false }
+                  - { name: bio, label: Bio paragraphs, widget: list, field: { name: p, label: Paragraph, widget: text } }
+
+      - name: ecic
+        label: ECIC
+        file: src/data/ecic.json
+        fields:
+          - name: hero
+            label: Page header
+            widget: object
+            fields:
+              - { name: headline, label: Headline, widget: string }
+              - { name: text, label: Supporting text, widget: text }
+              - { name: image, label: Header photo, widget: image, required: false }
+              - { name: imageAlt, label: Photo description, widget: string, required: false }
+              - { name: imagePlaceholder, label: Placeholder note, widget: string }
+          - name: edition2026
+            label: ECIC 2026
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: paragraphs, label: Paragraphs, widget: list, field: { name: p, label: Paragraph, widget: text } }
+              - { name: finaleDate, label: Grand Finale date, widget: datetime, time_format: false, format: "YYYY-MM-DD" }
+          - name: stats
+            label: Impact statistics
+            widget: list
+            hint: "Only enter verified figures. Leave the value empty to show a [NUMBER] placeholder. Never use projected or proposal figures."
+            fields:
+              - { name: label, label: Label, widget: string }
+              - { name: value, label: Verified value, widget: string, required: false }
+          - name: gallery
+            label: Photo gallery
+            widget: list
+            required: false
+            hint: "Approved ECIC photographs only."
+            fields:
+              - { name: src, label: Photo, widget: image }
+              - { name: alt, label: Photo description (alt text), widget: string }
+              - { name: caption, label: Caption, widget: string, required: false }
+          - name: announcements
+            label: Announcements
+            widget: list
+            required: false
+            fields:
+              - { name: date, label: Date, widget: datetime, time_format: false, format: "YYYY-MM-DD" }
+              - { name: title, label: Title, widget: string }
+              - { name: text, label: Text, widget: text }
+              - { name: link, label: Link (optional), widget: string, required: false }
+          - name: edition2027
+            label: ECIC 2027
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: paragraphs, label: Paragraphs, widget: list, field: { name: p, label: Paragraph, widget: text } }
+
+  - name: insights
+    label: Insights and Resources
+    label_singular: Article
+    folder: src/content/insights
+    create: true
+    slug: "{{year}}-{{month}}-{{slug}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: description, label: Summary, widget: text }
+      - { name: date, label: Date, widget: datetime }
+      - { name: category, label: Category, widget: select, options: [Article, Announcement, Project update, Resource], default: Article }
+      - { name: image, label: Image, widget: image, required: false }
+      - { name: imageAlt, label: Image description, widget: string, required: false }
+      - { name: draft, label: Draft (hidden from the site), widget: boolean, default: true }
+      - { name: body, label: Body, widget: markdown }

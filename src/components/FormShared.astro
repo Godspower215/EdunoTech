@@ -1,0 +1,14 @@
+---
+// Spam protection shared by every form: a hidden honeypot field (checked
+// server-side) plus Cloudflare Turnstile when PUBLIC_TURNSTILE_SITE_KEY is set.
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+---
+<div class="hp" aria-hidden="true">
+  <label>Leave this field empty <input type="text" name="company_website" tabindex="-1" autocomplete="off" /></label>
+</div>
+{siteKey && (
+  <>
+    <div class="cf-turnstile" data-sitekey={siteKey} data-theme="light" data-size="flexible"></div>
+    <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  </>
+)}

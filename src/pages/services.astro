@@ -1,0 +1,145 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import ImageSlot from '../components/ImageSlot.astro';
+import Process from '../components/Process.astro';
+import CtaBand from '../components/CtaBand.astro';
+import data from '../data/services.json';
+
+const services = data.services as any[];
+const dires = data.dires;
+const pad = (n: number) => String(n).padStart(2, '0');
+---
+<Base
+  title="Services | Edunotech"
+  description="Explore Edunotech's services across AI, web development, digital solutions, technology education, and innovation."
+>
+  <PageHero eyebrow="Services" title={data.hero.headline} text={data.hero.text}>
+    <div class="btn-row"><Button href="/contact" arrow event="cta_services_hero">Discuss Your Project</Button></div>
+  </PageHero>
+
+  <nav class="svc-index" aria-label="Service categories">
+    <div class="container">
+      <ul>
+        {services.map((s, i) => <li><a href={`#${s.id}`}><span>{pad(i + 1)}</span>{s.title}</a></li>)}
+      </ul>
+    </div>
+  </nav>
+
+  {services.map((s, i) => (
+    <section class:list={['section svc', { 'section--neutral': i % 2 === 1 }]} id={s.id} aria-labelledby={`${s.id}-title`}>
+      <div class="container svc__grid">
+        <div class="svc__main">
+          <div class="svc__top">
+            <span class="icon-badge"><Icon name={s.icon} /></span>
+            <span class="svc__num">{pad(i + 1)} / {pad(services.length)}</span>
+          </div>
+          <h2 id={`${s.id}-title`}>{s.title}</h2>
+          <p class="lead">{s.short}</p>
+          {s.detail.map((p: string) => <p class="muted">{p}</p>)}
+          {s.idealClients && (
+            <p class="svc__clients"><strong>Ideal clients:</strong> {s.idealClients}</p>
+          )}
+          {s.note && <p class="svc__note">{s.note}</p>}
+          <div class="btn-row">
+            <Button href={`/contact?enquiry=${s.enquiry}#enquiry-form`} arrow event="service_enquiry_click">{s.cta}</Button>
+          </div>
+        </div>
+
+        <aside class="svc__side">
+          {s.items.length > 0 && (
+            <div class="svc__list">
+              <h3>{s.listLabel}</h3>
+              <ul class="check-list">
+                {s.items.map((it: string) => <li><Icon name="check" size={20} /><span>{it}</span></li>)}
+              </ul>
+            </div>
+          )}
+
+          {s.featuredProgramme && (
+            <a class="featured-prog on-dark" href="/problem-solving-experience" data-event="cta_pse">
+              <span class="badge">Featured experience</span>
+              <h3>The Problem-Solving Experience</h3>
+              <p>A structured educational experience that helps students recognise problems, understand them, and create practical solutions.</p>
+              <span class="text-link">Explore the Experience <Icon name="arrow-right" size={16} /></span>
+            </a>
+          )}
+
+          {s.id === 'education-management' && dires.show && (
+            <div class="svc__list dires">
+              <span class="badge">Featured product</span>
+              <h3>{dires.name}: {dires.label}</h3>
+              {dires.status && <p class="muted"><strong>Status:</strong> {dires.status}</p>}
+              <p>{dires.description}</p>
+              {dires.image && <ImageSlot src={dires.image} alt={dires.imageAlt} need="DIRES screenshot" ratio="16 / 10" light />}
+            </div>
+          )}
+
+          {s.id === 'education-management' && !dires.show && (
+            <div class="svc__list">
+              <h3>What this covers</h3>
+              <ul class="check-list">
+                <li><Icon name="check" size={20} /><span>Digital data-management solutions for schools</span></li>
+                <li><Icon name="check" size={20} /><span>Related institutional technology</span></li>
+              </ul>
+            </div>
+          )}
+        </aside>
+      </div>
+    </section>
+  ))}
+
+  <!-- How to engage -->
+  <section class="section section--dark" id="how-to-engage">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Working together</p>
+        <h2>{data.process.heading}</h2>
+      </div>
+      <div class="engage">
+        <Process steps={data.process.steps} label="How to engage Edunotech" />
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title={data.cta.heading} text={data.cta.text}>
+    <Button href="/contact#enquiry-form" variant="lime" arrow event="cta_request_consultation">Request a Consultation</Button>
+  </CtaBand>
+</Base>
+
+<style>
+  .svc-index { position: sticky; top: 76px; z-index: 20; background: var(--white); border-bottom: 1px solid var(--grey); }
+  .svc-index ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 0.25rem; overflow-x: auto; scrollbar-width: none; }
+  .svc-index ul::-webkit-scrollbar { display: none; }
+  .svc-index a {
+    display: inline-flex; align-items: center; gap: 0.5rem; white-space: nowrap; min-height: 52px; padding: 0 0.9rem;
+    color: var(--charcoal); text-decoration: none; font-weight: 600; font-size: 0.9rem;
+  }
+  .svc-index a span { color: var(--emerald-ink); font-weight: 800; font-size: 0.78rem; }
+  .svc-index a:hover { color: var(--forest); background: var(--neutral); }
+  .svc { scroll-margin-top: 140px; }
+  .svc__grid { display: grid; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (min-width: 960px) { .svc__grid { grid-template-columns: 1.2fr 0.8fr; } }
+  .svc__top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 0.25rem; }
+  .svc__num { font-weight: 800; color: var(--muted); font-size: 0.85rem; letter-spacing: 0.05em; }
+  .svc__main .lead { color: var(--forest); font-weight: 600; }
+  .svc__clients { padding: 1rem 1.15rem; border-radius: var(--radius-sm); background: var(--neutral); border-left: 4px solid var(--lime); }
+  .section--neutral .svc__clients { background: var(--white); }
+  .svc__note { font-size: 0.93rem; color: var(--muted); font-style: italic; }
+  .svc__side { display: grid; gap: 1.25rem; }
+  .svc__list { background: var(--white); border: 1px solid var(--grey); border-radius: var(--radius); padding: clamp(1.4rem, 3vw, 2rem); }
+  .section--neutral .svc__list { border-color: transparent; }
+  .svc__list h3 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--emerald-ink); margin-bottom: 1.1rem; }
+  .svc__list .check-list li { font-weight: 600; color: var(--forest); font-size: 0.97rem; }
+  .featured-prog { display: block; background: var(--forest); color: var(--white); border-radius: var(--radius); padding: clamp(1.4rem, 3vw, 2rem); text-decoration: none; }
+  .featured-prog h3 { color: var(--white); margin-top: 0.85rem; }
+  .featured-prog p { color: var(--on-dark-muted); font-size: 0.97rem; }
+  .featured-prog:hover { background: var(--forest-2); color: var(--white); }
+  .featured-prog .text-link { color: var(--lime); }
+  .engage :global(.process__step) { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.12); }
+  .engage :global(.process__step h3) { color: var(--white); }
+  .engage :global(.process__step p) { color: var(--on-dark-muted); }
+  .engage :global(.process__num) { background: var(--lime); color: var(--forest); }
+</style>

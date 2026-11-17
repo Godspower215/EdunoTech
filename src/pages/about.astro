@@ -1,0 +1,147 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import ImageSlot from '../components/ImageSlot.astro';
+import CtaBand from '../components/CtaBand.astro';
+import about from '../data/about.json';
+---
+<Base
+  title="About Edunotech | Our Story, Mission and Vision"
+  description="Learn about Edunotech, our philosophy, and our work across education, technology, artificial intelligence, and innovation."
+>
+  <PageHero eyebrow="About Edunotech" title={about.hero.headline} text={about.hero.text} />
+
+  <!-- Story -->
+  <section class="section">
+    <div class="container split split--top">
+      <div class="story-head">
+        <p class="eyebrow">Our story</p>
+        <h2>{about.story.heading}</h2>
+      </div>
+      <div class="prose">
+        {about.story.paragraphs.map((p) => (
+          p === 'This is the thinking behind Edunotech.' ? <p class="story-pivot">{p}</p> : <p>{p}</p>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission & vision -->
+  <section class="section section--tight">
+    <div class="container grid grid-2">
+      <article class="mv mv--mission">
+        <p class="eyebrow">Our Mission</p>
+        <p class="mv__text">{about.mission}</p>
+      </article>
+      <article class="mv mv--vision">
+        <p class="eyebrow">Our Vision</p>
+        <p class="mv__text">{about.vision}</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Philosophy -->
+  <section class="section section--dark">
+    <div class="container split split--top">
+      <div>
+        <p class="eyebrow">Our philosophy</p>
+        <h2>{about.philosophy.heading}</h2>
+        {about.philosophy.paragraphs.map((p) => <p>{p}</p>)}
+      </div>
+      <div>
+        <h3 class="beliefs-title">What we believe</h3>
+        <ul class="check-list beliefs">
+          {about.philosophy.beliefs.map((b) => <li><Icon name="check" size={20} /><span>{b}</span></li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Focus areas -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Where we work</p>
+        <h2>Our Areas of Focus</h2>
+      </div>
+      <ul class="focus-grid">
+        {about.focus.map((f) => (
+          <li><span class="icon-badge"><Icon name={f.icon} /></span><span>{f.title}</span></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="section section--neutral">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">What guides us</p>
+        <h2>Our Values</h2>
+      </div>
+      <div class="grid grid-3">
+        {about.values.map((v) => (
+          <article class="card">
+            <span class="icon-badge"><Icon name={v.icon} /></span>
+            <h3>{v.title}</h3>
+            <p>{v.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  {about.team.show && (
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Leadership</p>
+          <h2>{about.team.heading}</h2>
+        </div>
+        {about.team.members.map((m) => (
+          <article class="person">
+            <ImageSlot src={m.photo} alt={m.photoAlt} need={`portrait of ${m.name} (optional)`} ratio="1 / 1" light class="person__photo" />
+            <div>
+              <h3 class="person__name">{m.name}</h3>
+              <p class="person__role">{m.role}</p>
+              {m.bio.map((p) => <p>{p}</p>)}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <CtaBand title={about.cta.heading} text={about.cta.text}>
+    <Button href="/contact" variant="lime" arrow event="cta_about_contact">Contact Edunotech</Button>
+  </CtaBand>
+</Base>
+
+<style>
+  .story-head { position: sticky; top: 100px; }
+  @media (max-width: 899px) { .story-head { position: static; } }
+  .story-pivot { font-weight: 800; color: var(--forest); font-size: var(--step-1); border-left: 4px solid var(--lime); padding-left: 1rem; }
+
+  .mv { border-radius: calc(var(--radius) * 1.25); padding: clamp(1.75rem, 4vw, 3rem); }
+  .mv--mission { background: var(--emerald); color: var(--white); }
+  .mv--mission .eyebrow { color: var(--white); }
+  .mv--vision { background: var(--neutral); }
+  .mv__text { font-size: var(--step-2); font-weight: 700; line-height: 1.35; letter-spacing: -0.015em; margin: 0; }
+  .mv--vision .mv__text { color: var(--forest); }
+
+  .beliefs-title { color: var(--lime) !important; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.25rem; }
+  .beliefs li { color: var(--white); padding-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .beliefs li:last-child { border-bottom: 0; }
+
+  .focus-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); border-top: 1px solid var(--grey); }
+  .focus-grid li { display: flex; align-items: center; gap: 1rem; padding: 1.25rem 0.5rem; border-bottom: 1px solid var(--grey); font-weight: 700; color: var(--forest); font-size: var(--step-1); }
+  .focus-grid .icon-badge { margin: 0; }
+
+  .person { display: grid; gap: 2rem; align-items: start; max-width: 960px; }
+  @media (min-width: 720px) { .person { grid-template-columns: 260px 1fr; } }
+  .person__name { font-size: var(--step-2); margin-bottom: 0.15rem; }
+  .person__role { color: var(--emerald-ink); font-weight: 700; margin-bottom: 1.25rem; }
+</style>

@@ -1,0 +1,59 @@
+---
+import ecic from '../data/ecic.json';
+import FormShared from './FormShared.astro';
+---
+<form class="form" action="/api/submit" method="post" data-form data-event="ecic_interest_submit" data-success="Thank you for your interest in ECIC 2027. Your details have been received, and the ECIC team will be in touch as plans develop.">
+  <input type="hidden" name="formType" value="ecic-interest" />
+  <fieldset class="fieldset" data-required-group data-required-msg="Please choose at least one way you would like to take part.">
+    <legend>How would you like to take part? <span class="req" aria-hidden="true">*</span></legend>
+    <div class="choice-grid">
+      {ecic.interestCategories.map((c, i) => (
+        <label class="choice" for={`ei-cat-${i}`}><input id={`ei-cat-${i}`} type="checkbox" name="interests" value={c} /> {c}</label>
+      ))}
+    </div>
+    <p class="field-error" aria-live="polite"></p>
+  </fieldset>
+  <div class="form-row form-row--2">
+    <div class="field">
+      <label for="ei-name">Full Name <span class="req" aria-hidden="true">*</span></label>
+      <input id="ei-name" name="name" type="text" autocomplete="name" required maxlength="120" aria-describedby="ei-name-error" />
+      <p class="field-error" id="ei-name-error" aria-live="polite"></p>
+    </div>
+    <div class="field">
+      <label for="ei-email">Email Address <span class="req" aria-hidden="true">*</span></label>
+      <input id="ei-email" name="email" type="email" autocomplete="email" required maxlength="200" aria-describedby="ei-email-error" />
+      <p class="field-error" id="ei-email-error" aria-live="polite"></p>
+    </div>
+  </div>
+  <div class="form-row form-row--2">
+    <div class="field">
+      <label for="ei-phone">Phone Number <span class="opt">(optional)</span></label>
+      <input id="ei-phone" name="phone" type="tel" autocomplete="tel" maxlength="40" pattern="[0-9+()\-\s]{6,40}" aria-describedby="ei-phone-error" />
+      <p class="field-error" id="ei-phone-error" aria-live="polite"></p>
+    </div>
+    <div class="field">
+      <label for="ei-org">School or Organisation <span class="opt">(optional)</span></label>
+      <input id="ei-org" name="organisation" type="text" autocomplete="organization" maxlength="200" aria-describedby="ei-org-error" />
+      <p class="field-error" id="ei-org-error" aria-live="polite"></p>
+    </div>
+  </div>
+  <div class="field">
+    <label for="ei-message">Tell us a little about your interest <span class="req" aria-hidden="true">*</span></label>
+    <textarea id="ei-message" name="message" required minlength="10" maxlength="3000" aria-describedby="ei-message-error"></textarea>
+    <p class="field-error" id="ei-message-error" aria-live="polite"></p>
+  </div>
+  <div class="field">
+    <label class="consent" for="ei-consent">
+      <input id="ei-consent" name="consent" type="checkbox" value="yes" required aria-describedby="ei-consent-error" data-required-msg="Please agree to the Privacy Policy so we can contact you about ECIC." />
+      <span>I agree that Edunotech may use these details to contact me about ECIC, as described in the <a href="/privacy">Privacy Policy</a>. If I am under 18, a parent, guardian or teacher knows I am submitting this form. <span class="req" aria-hidden="true">*</span></span>
+    </label>
+    <p class="field-error" id="ei-consent-error" aria-live="polite"></p>
+  </div>
+  <FormShared />
+  <div class="form-status" data-form-status role="status" tabindex="-1"></div>
+  <div><button type="submit" class="btn btn--primary">Express Interest</button></div>
+</form>
+<script>
+  import { initForms } from '../scripts/forms';
+  initForms();
+</script>

@@ -1,0 +1,21 @@
+{
+  "name": "eduno-tech-website",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.5",
+    "@fontsource-variable/manrope": "^5.3.0",
+    "@lucide/astro": "^1.74.0",
+    "astro": "^7.4.12"
+  },
+  "devDependencies": {
+    "wrangler": "^4.164.0"
+  }
+}

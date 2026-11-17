@@ -1,0 +1,22 @@
+{
+  "hero": {
+    "headline": "Let's start a conversation.",
+    "text": "Have a project, partnership idea, institutional enquiry, or question about what we do? We would love to hear from you."
+  },
+  "enquiryTypes": [
+    { "value": "general", "label": "General Enquiry" },
+    { "value": "web", "label": "Website and Digital Solutions" },
+    { "value": "ai", "label": "AI and Technology Solutions" },
+    { "value": "education", "label": "Education and Training" },
+    { "value": "partnership", "label": "Institutional Partnership" },
+    { "value": "pse", "label": "The Problem-Solving Experience" },
+    { "value": "ecic-sponsor", "label": "ECIC Sponsorship or Partnership" },
+    { "value": "ecic-participation", "label": "ECIC Participation" },
+    { "value": "other", "label": "Other" }
+  ],
+  "successMessage": "Thank you for contacting Edunotech. Your message has been received. Our team will review your enquiry and get back to you.",
+  "direct": {
+    "heading": "Not sure where to start?",
+    "text": "Tell us a little about what you are trying to achieve, and we will help direct your enquiry to the appropriate area."
+  }
+}

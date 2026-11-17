@@ -1,0 +1,92 @@
+---
+import site from '../data/site.json';
+import Logo from './Logo.astro';
+import Placeholder from './Placeholder.astro';
+import { waLink, telLink } from '../lib/contact';
+
+interface Props { statement?: string; }
+const { statement } = Astro.props;
+const year = new Date().getFullYear();
+const c = site.contact;
+const socials = site.socials as { platform: string; url: string }[];
+---
+<footer class="site-footer on-dark">
+  {statement && (
+    <div class="site-footer__statement"><div class="container"><p>{statement}</p></div></div>
+  )}
+  <div class="container site-footer__grid">
+    <div class="site-footer__brand">
+      <a href="/" aria-label="Edunotech home" class="site-footer__logo"><Logo variant="dark" /></a>
+      <p>{site.tagline}</p>
+      <p class="site-footer__desc">{site.footerDescription}</p>
+    </div>
+    <nav aria-label="Company">
+      <h2>Company</h2>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About Us</a></li>
+        <li><a href="/services">Services</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+      </ul>
+    </nav>
+    <nav aria-label="Programmes and initiatives">
+      <h2>Programmes and Initiatives</h2>
+      <ul>
+        <li><a href="/problem-solving-experience">The Problem-Solving Experience</a></li>
+        <li><a href="/ecic">ECIC</a></li>
+      </ul>
+      <h2 class="mt">Services</h2>
+      <ul>
+        <li><a href="/services#ai-solutions">AI and Intelligent Solutions</a></li>
+        <li><a href="/services#web-development">Web Development</a></li>
+        <li><a href="/services#education">Education and Training</a></li>
+      </ul>
+    </nav>
+    <div>
+      <h2>Connect</h2>
+      <ul class="site-footer__contact">
+        <li>{c.email ? <a href={`mailto:${c.email}`}>{c.email}</a> : <Placeholder label="Official email" />}</li>
+        <li>{c.phone ? <a href={telLink(c.phone)}>{c.phone}</a> : <Placeholder label="Business phone" />}</li>
+        {c.whatsapp && <li><a href={waLink(c.whatsapp)} rel="noopener" target="_blank" data-event="whatsapp_click">WhatsApp</a></li>}
+      </ul>
+      <ul class="site-footer__social" aria-label="Social media">
+        {socials.length ? socials.map((s) => (
+          <li><a href={s.url} rel="noopener me" target="_blank">{s.platform}</a></li>
+        )) : <li><Placeholder label="Verified social links" /></li>}
+      </ul>
+    </div>
+  </div>
+  <div class="container site-footer__bottom">
+    <p>© {year} Edunotech. All rights reserved.</p>
+    <ul>
+      <li><a href="/privacy">Privacy Policy</a></li>
+      <li><a href="/terms">Terms of Use</a></li>
+    </ul>
+  </div>
+</footer>
+
+<style>
+  .site-footer { background: var(--forest-2); color: var(--on-dark-muted); font-size: 0.95rem; }
+  .site-footer a { color: var(--white); text-decoration: none; }
+  .site-footer a:hover { color: var(--lime); text-decoration: underline; }
+  .site-footer__statement { background: var(--forest); border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .site-footer__statement p { margin: 0; padding-block: 1.75rem; color: var(--white); font-weight: 600; font-size: var(--step-1); max-width: 60ch; }
+  .site-footer__grid {
+    display: grid; gap: 2.5rem; padding-block: clamp(3rem, 6vw, 4.5rem);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  }
+  @media (min-width: 960px) { .site-footer__grid { grid-template-columns: 1.6fr 1fr 1.3fr 1.2fr; } }
+  .site-footer__logo { display: inline-flex; margin-bottom: 1.25rem; }
+  .site-footer__brand p { color: var(--white); font-weight: 600; max-width: 34ch; }
+  .site-footer__brand .site-footer__desc { color: var(--on-dark-muted); font-weight: 400; }
+  .site-footer h2 { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--lime); margin-bottom: 1rem; font-weight: 700; }
+  .site-footer h2.mt { margin-top: 1.75rem; }
+  .site-footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
+  .site-footer__social { margin-top: 1.25rem !important; display: flex !important; flex-wrap: wrap; gap: 0.5rem 1rem !important; }
+  .site-footer__bottom {
+    display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: center;
+    padding-block: 1.5rem; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.88rem;
+  }
+  .site-footer__bottom p { margin: 0; }
+  .site-footer__bottom ul { display: flex; gap: 1.5rem; }
+</style>

@@ -1,0 +1,50 @@
+---
+// Thin wrapper over Lucide icons (ISC licence) so content files can name icons by a short key.
+import ArrowRight from '@lucide/astro/icons/arrow-right';
+import Brain from '@lucide/astro/icons/brain';
+import Code from '@lucide/astro/icons/code-xml';
+import GraduationCap from '@lucide/astro/icons/graduation-cap';
+import Megaphone from '@lucide/astro/icons/megaphone';
+import Database from '@lucide/astro/icons/database';
+import Lightbulb from '@lucide/astro/icons/lightbulb';
+import School from '@lucide/astro/icons/school';
+import Building from '@lucide/astro/icons/building';
+import Handshake from '@lucide/astro/icons/handshake';
+import Users from '@lucide/astro/icons/users';
+import Monitor from '@lucide/astro/icons/monitor';
+import Layers from '@lucide/astro/icons/layers';
+import Microscope from '@lucide/astro/icons/microscope';
+import Rocket from '@lucide/astro/icons/rocket';
+import Book from '@lucide/astro/icons/book-open';
+import Target from '@lucide/astro/icons/target';
+import Shield from '@lucide/astro/icons/shield-check';
+import Trending from '@lucide/astro/icons/trending-up';
+import Check from '@lucide/astro/icons/check';
+import Mail from '@lucide/astro/icons/mail';
+import Phone from '@lucide/astro/icons/phone';
+import MapPin from '@lucide/astro/icons/map-pin';
+import Message from '@lucide/astro/icons/message-circle';
+import Menu from '@lucide/astro/icons/menu';
+import X from '@lucide/astro/icons/x';
+import Camera from '@lucide/astro/icons/image';
+import HandCoins from '@lucide/astro/icons/hand-coins';
+import Globe from '@lucide/astro/icons/globe';
+import Send from '@lucide/astro/icons/send';
+import Calendar from '@lucide/astro/icons/calendar';
+import External from '@lucide/astro/icons/external-link';
+import Quote from '@lucide/astro/icons/quote';
+
+const icons = {
+  'arrow-right': ArrowRight, brain: Brain, code: Code, graduation: GraduationCap, megaphone: Megaphone,
+  database: Database, lightbulb: Lightbulb, school: School, building: Building, handshake: Handshake,
+  users: Users, monitor: Monitor, layers: Layers, microscope: Microscope, rocket: Rocket, book: Book,
+  target: Target, shield: Shield, trending: Trending, check: Check, mail: Mail, phone: Phone,
+  'map-pin': MapPin, message: Message, menu: Menu, x: X, camera: Camera, 'hand-coins': HandCoins,
+  globe: Globe, send: Send, calendar: Calendar, external: External, quote: Quote,
+} as const;
+
+interface Props { name: keyof typeof icons | string; size?: number; class?: string; }
+const { name, size = 24, class: className } = Astro.props;
+const Cmp = (icons as Record<string, any>)[name] ?? Lightbulb;
+---
+<Cmp size={size} class={className} aria-hidden="true" focusable="false" stroke-width={1.75} />

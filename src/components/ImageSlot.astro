@@ -1,0 +1,15 @@
+---
+// Shows an approved photo when `src` is set, otherwise a clearly labelled slot
+// describing the photo that is needed. Never fill these with stock images that
+// imply Edunotech participation (blueprint 5.6).
+import Icon from './Icon.astro';
+interface Props { src?: string; alt?: string; need: string; ratio?: string; light?: boolean; class?: string; eager?: boolean; }
+const { src, alt = '', need, ratio = '4 / 3', light = false, class: className, eager = false } = Astro.props;
+---
+<figure class:list={['image-slot', { 'image-slot--light': light }, className]} style={`aspect-ratio:${ratio};margin:0`}>
+  {src ? (
+    <img src={src} alt={alt} loading={eager ? 'eager' : 'lazy'} decoding="async" />
+  ) : (
+    <figcaption class="image-slot__label" data-placeholder="photo"><Icon name="camera" size={16} /> Photo needed: {need}</figcaption>
+  )}
+</figure>

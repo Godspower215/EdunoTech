@@ -1,0 +1,197 @@
+{
+  "hero": {
+    "headline": "Practical technology. Meaningful solutions.",
+    "text": "From digital development and artificial intelligence to technology education and innovation, Edunotech works with individuals and organisations to turn ideas and opportunities into practical outcomes."
+  },
+  "services": [
+    {
+      "id": "ai-solutions",
+      "icon": "brain",
+      "title": "AI and Intelligent Solutions",
+      "cardText": "Helping individuals and organisations explore, understand, and apply artificial intelligence to practical tasks, workflows, and emerging opportunities.",
+      "cardLink": "Explore AI Solutions",
+      "short": "Helping individuals and organisations understand and apply artificial intelligence to improve the way they learn, work, and solve problems.",
+      "detail": [
+        "Artificial intelligence is creating new possibilities across education, business, research, communication, and everyday operations.",
+        "At Edunotech, we explore practical ways to apply AI to real needs. Our focus includes AI education, adoption, workflow improvement, and the development of useful AI-enabled solutions."
+      ],
+      "listLabel": "Areas of service",
+      "items": [
+        "AI awareness and literacy",
+        "AI education and practical training",
+        "AI adoption and integration support",
+        "AI-assisted workflows and productivity",
+        "AI solution and product development",
+        "Responsible AI use and application"
+      ],
+      "idealClients": "Educational institutions, businesses, organisations, professionals, and other groups seeking to understand or apply AI.",
+      "note": "",
+      "cta": "Discuss an AI Project",
+      "enquiry": "ai"
+    },
+    {
+      "id": "web-development",
+      "icon": "code",
+      "title": "Web Development and Digital Solutions",
+      "homeTitle": "Digital Solutions and Web Development",
+      "cardText": "Developing websites and digital solutions that help businesses, educational institutions, and organisations strengthen their digital presence and operations.",
+      "cardLink": "Explore Digital Solutions",
+      "short": "Building useful digital platforms and web experiences that help organisations establish their presence, communicate effectively, and serve their audiences.",
+      "detail": [
+        "A strong digital presence is increasingly important for organisations that want to communicate their value, reach their audiences, and make information and services more accessible.",
+        "Edunotech develops websites and digital solutions with attention to usability, structure, visual presentation, and the needs of the organisation."
+      ],
+      "listLabel": "Areas of service",
+      "items": [
+        "Business and corporate websites",
+        "School and educational institution websites",
+        "WordPress website development",
+        "Website redesign and improvement",
+        "Landing pages",
+        "Digital platform development",
+        "Website maintenance and content updates, subject to agreed service arrangements"
+      ],
+      "idealClients": "Schools, businesses, startups, educational organisations, and institutions.",
+      "note": "",
+      "cta": "Build Your Website",
+      "enquiry": "web"
+    },
+    {
+      "id": "education",
+      "icon": "graduation",
+      "title": "Education and Capacity Development",
+      "cardText": "Creating learning experiences that equip people with relevant technology knowledge, digital skills, and practical problem-solving capabilities.",
+      "cardLink": "Explore Our Programmes",
+      "cardHref": "/problem-solving-experience",
+      "short": "Developing practical learning experiences that equip people with technology knowledge, digital capabilities, and the ability to solve problems.",
+      "detail": [
+        "Technology education should go beyond theoretical explanations. People need opportunities to understand how technologies work, explore their applications, and develop the confidence to use them.",
+        "Edunotech develops educational experiences and training opportunities that connect learning with practical application."
+      ],
+      "listLabel": "Areas of service",
+      "items": [
+        "AI literacy and practical AI training",
+        "Prompt engineering and AI-assisted productivity",
+        "Introduction to coding and software development",
+        "Web design and development training",
+        "Digital skills development",
+        "Technology education for schools and institutions",
+        "Problem-solving and innovation learning experiences"
+      ],
+      "idealClients": "",
+      "note": "",
+      "featuredProgramme": true,
+      "cta": "Explore Learning Opportunities",
+      "enquiry": "education"
+    },
+    {
+      "id": "digital-communication",
+      "icon": "megaphone",
+      "title": "Digital Communication and Brand Support",
+      "cardText": "Supporting organisations with digital communication, content, social media management, and relevant brand-support services.",
+      "cardLink": "Explore Our Services",
+      "short": "Helping organisations strengthen their digital communication and present their brands more effectively.",
+      "detail": [
+        "An organisation's ability to communicate clearly and consistently influences how people understand and engage with it.",
+        "Edunotech supports organisations with digital communication and brand-related services that help them maintain a more effective presence."
+      ],
+      "listLabel": "Areas of service",
+      "items": [
+        "Social media management",
+        "Social media content planning",
+        "Graphic design and digital content",
+        "Digital marketing support",
+        "Social media advertising support",
+        "Printing and branding services"
+      ],
+      "idealClients": "",
+      "note": "Specific deliverables, timelines, and pricing are agreed with each client.",
+      "cta": "Improve Your Digital Presence",
+      "enquiry": "general"
+    },
+    {
+      "id": "education-management",
+      "icon": "database",
+      "title": "Education Management and Data Solutions",
+      "homeTitle": "Education Management Solutions",
+      "cardText": "Exploring and providing digital solutions that support educational administration, information management, and institutional processes.",
+      "cardLink": "Learn More",
+      "short": "Exploring digital solutions that help educational institutions organise information and improve administrative processes.",
+      "detail": [
+        "Educational institutions manage information relating to students, academic activities, administration, and institutional operations.",
+        "Digital tools can help make these processes more organised, accessible, and efficient.",
+        "Edunotech's education-management focus includes digital data-management solutions and related institutional technology."
+      ],
+      "listLabel": "",
+      "items": [],
+      "idealClients": "",
+      "note": "",
+      "cta": "Discuss Education Technology",
+      "enquiry": "general"
+    },
+    {
+      "id": "innovation",
+      "icon": "lightbulb",
+      "title": "Innovation and Product Development",
+      "cardText": "Exploring practical technology opportunities and developing solutions that respond to emerging needs.",
+      "cardLink": "Discuss a Project",
+      "cardHref": "/contact?enquiry=partnership",
+      "short": "Exploring emerging opportunities and developing technology-driven products that respond to real needs.",
+      "detail": [
+        "Edunotech is interested in identifying gaps, understanding user needs, and exploring how technology can create useful products and services.",
+        "This includes exploring applications of artificial intelligence, digital platforms, and other emerging technologies.",
+        "Our approach begins with understanding the problem and the people affected before determining the most appropriate technology or solution."
+      ],
+      "listLabel": "Areas of focus",
+      "items": [
+        "AI-enabled product development",
+        "Digital product concepts",
+        "Technology experimentation and prototyping",
+        "User-centred product thinking",
+        "Research-informed innovation"
+      ],
+      "idealClients": "",
+      "note": "",
+      "cta": "Explore a Collaboration",
+      "enquiry": "partnership"
+    }
+  ],
+  "dires": {
+    "show": false,
+    "name": "DIRES",
+    "label": "School Data Management Solution",
+    "description": "",
+    "status": "",
+    "image": "",
+    "imageAlt": ""
+  },
+  "process": {
+    "heading": "How to engage Edunotech",
+    "steps": [
+      {
+        "title": "Tell Us What You Need",
+        "text": "Share your organisation, challenge, project, or service requirement."
+      },
+      {
+        "title": "Initial Discussion",
+        "text": "We discuss the context, expectations, and possible approach."
+      },
+      {
+        "title": "Proposed Scope",
+        "text": "We identify the relevant service, deliverables, timeline, and commercial terms."
+      },
+      {
+        "title": "Execution",
+        "text": "Work begins based on the agreed scope and arrangement."
+      },
+      {
+        "title": "Review",
+        "text": "We review the outcome and identify any required improvements or next steps."
+      }
+    ]
+  },
+  "cta": {
+    "heading": "Have a project in mind?",
+    "text": "Let's discuss your needs and explore how the right technology, expertise, and approach can help you move forward."
+  }
+}

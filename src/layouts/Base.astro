@@ -1,0 +1,88 @@
+---
+import '@fontsource-variable/manrope';
+import '../styles/global.css';
+import site from '../data/site.json';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  noindex?: boolean;
+  footerStatement?: string;
+  jsonLd?: Record<string, unknown>[];
+}
+const { title, description, image = '/og-default.png', noindex = false, footerStatement, jsonLd = [] } = Astro.props;
+const canonical = new URL(Astro.url.pathname.replace(/\.html$/, ''), Astro.site);
+const ogImage = new URL(image, Astro.site);
+const org = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: site.name,
+  url: new URL('/', Astro.site).toString(),
+  description: site.footerDescription,
+  ...(site.logo ? { logo: new URL(site.logo, Astro.site).toString() } : {}),
+  ...(site.contact.email ? { email: site.contact.email } : {}),
+  ...((site.socials as { url: string }[]).length ? { sameAs: (site.socials as { url: string }[]).map((s) => s.url) } : {}),
+};
+const cfToken = site.analytics.cloudflareToken;
+---
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" content="#123B2A" />
+    <link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48" />
+    <link rel="icon" href="/icon-512.png" type="image/png" sizes="512x512" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Edunotech" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_GB" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json" set:html={JSON.stringify([org, ...jsonLd])} />
+    {cfToken && (
+      <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={JSON.stringify({ token: cfToken })}></script>
+    )}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer statement={footerStatement} />
+    <WhatsAppButton />
+    <script>
+      // CTA click tracking. Sends to whichever analytics tool is installed
+      // (Cloudflare Zaraz, Plausible or GA4). Does nothing if none is set up.
+      document.addEventListener('click', (e) => {
+        const el = (e.target as HTMLElement).closest<HTMLElement>('[data-event]');
+        if (!el) return;
+        const w = window as any;
+        const name = el.dataset.event!;
+        const props = { label: el.textContent?.trim().slice(0, 80) ?? '', page: location.pathname };
+        try {
+          w.zaraz?.track?.(name, props);
+          w.plausible?.(name, { props });
+          w.gtag?.('event', name, props);
+        } catch {}
+      });
+    </script>
+  </body>
+</html>

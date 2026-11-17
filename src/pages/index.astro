@@ -1,0 +1,181 @@
+---
+import Base from '../layouts/Base.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import ImageSlot from '../components/ImageSlot.astro';
+import Process from '../components/Process.astro';
+import CtaBand from '../components/CtaBand.astro';
+import home from '../data/home.json';
+import servicesData from '../data/services.json';
+import pse from '../data/pse.json';
+
+const services = servicesData.services as any[];
+---
+<Base
+  title="Edunotech | Education, Innovation and Technology"
+  description="Discover Edunotech, a technology and education company connecting innovation, digital solutions, and practical problem-solving."
+>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero__grid">
+      <div class="hero__copy">
+        <p class="eyebrow">{home.hero.eyebrow}</p>
+        <h1>{home.hero.headline}</h1>
+        <p class="lead">{home.hero.text}</p>
+        <div class="btn-row">
+          <Button href="/services" arrow event="cta_hero_services">Explore Our Services</Button>
+          <Button href="/contact" variant="secondary" event="cta_hero_work_with_us">Work With Us</Button>
+        </div>
+      </div>
+      <div class="hero__visual">
+        <ImageSlot src={home.hero.image} alt={home.hero.imageAlt} need={home.hero.imagePlaceholder} ratio="4 / 5" eager />
+        <div class="hero__card" aria-hidden="true">
+          <p class="hero__card-title">How we work</p>
+          <ol>
+            {home.approach.steps.map((s) => <li>{s.title}</li>)}
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Introduction -->
+  <section class="section">
+    <div class="container split split--top">
+      <div>
+        <p class="eyebrow">Who we are</p>
+        <h2>{home.intro.heading}</h2>
+      </div>
+      <div class="prose">
+        {home.intro.paragraphs.map((p, i) => <p class={i === 0 ? 'lead' : ''}>{p}</p>)}
+        <div class="btn-row"><Button href="/about" variant="secondary" arrow>Discover Edunotech</Button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What we do -->
+  <section class="section section--neutral" id="what-we-do">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Services</p>
+        <h2>{home.whatWeDo.heading}</h2>
+        <p>{home.whatWeDo.text}</p>
+      </div>
+      <div class="grid grid-3">
+        {services.map((s) => (
+          <a class="card card--link service-card" href={s.cardHref ?? `/services#${s.id}`} data-event="service_card_click">
+            <span class="icon-badge"><Icon name={s.icon} /></span>
+            <h3>{s.homeTitle ?? s.title}</h3>
+            <p>{s.cardText}</p>
+            <span class="text-link">{s.cardLink} <Icon name="arrow-right" size={16} /></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Approach -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Our approach</p>
+        <h2>{home.approach.heading}</h2>
+      </div>
+      <Process steps={home.approach.steps} label="Edunotech's five-stage approach" />
+    </div>
+  </section>
+
+  <!-- Featured programme -->
+  <section class="section section--dark">
+    <div class="container split">
+      <div>
+        <p class="eyebrow">Featured programme</p>
+        <h2>{home.programme.heading}</h2>
+        <p class="lead">{home.programme.lead}</p>
+        {home.programme.paragraphs.map((p) => <p>{p}</p>)}
+        <div class="btn-row"><Button href="/problem-solving-experience" variant="lime" arrow event="cta_pse">Explore the Experience</Button></div>
+      </div>
+      <div class="framework-mini" aria-label="The nine stages of the problem-solving framework">
+        <ol>
+          {pse.framework.map((f, i) => (
+            <li><span>{String(i + 1).padStart(2, '0')}</span>{f.title}</li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ECIC -->
+  <section class="section">
+    <div class="container split">
+      <ImageSlot src={home.ecic.image} alt={home.ecic.imageAlt} need={home.ecic.imagePlaceholder} ratio="5 / 4" />
+      <div>
+        <p class="eyebrow">Community initiative</p>
+        <h2>{home.ecic.heading}</h2>
+        {home.ecic.paragraphs.map((p) => <p>{p}</p>)}
+        <p class="badge">An initiative powered by Edunotech</p>
+        <div class="btn-row"><Button href="/ecic" arrow event="cta_ecic">Discover ECIC</Button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who we work with -->
+  <section class="section section--neutral">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <p class="eyebrow">Who we work with</p>
+        <h2>{home.audiences.heading}</h2>
+        <p>{home.audiences.text}</p>
+      </div>
+      <ul class="audience-grid">
+        {home.audiences.items.map((a) => (
+          <li><span class="icon-badge"><Icon name={a.icon} /></span>{a.title}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand title={home.cta.heading} text={home.cta.text}>
+    <Button href="/contact" variant="lime" arrow event="cta_start_conversation">Start a Conversation</Button>
+    <Button href="/services" variant="ghost-light">Explore Our Work</Button>
+  </CtaBand>
+</Base>
+
+<style>
+  .hero { padding-block: clamp(2.5rem, 6vw, 5rem) clamp(3.5rem, 7vw, 6rem); background: linear-gradient(180deg, var(--neutral) 0%, var(--white) 100%); }
+  .hero__grid { display: grid; gap: clamp(2.5rem, 5vw, 4rem); align-items: center; }
+  @media (min-width: 960px) { .hero__grid { grid-template-columns: 1.15fr 0.85fr; } }
+  .hero h1 { max-width: 18ch; }
+  .hero .lead { color: var(--muted); max-width: 58ch; }
+  .hero__visual { position: relative; }
+  .hero__card {
+    position: absolute; right: -1.5rem; top: 2rem; background: var(--white); border-radius: 12px;
+    padding: 1rem 1.25rem; box-shadow: var(--shadow); border: 1px solid var(--grey); min-width: 200px;
+  }
+  @media (max-width: 1100px) { .hero__card { right: 1rem; top: 1rem; } }
+  .hero__card-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; color: var(--emerald-ink); margin-bottom: 0.5rem; }
+  .hero__card ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.3rem; counter-reset: s; }
+  .hero__card li { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; color: var(--forest); font-size: 0.93rem; counter-increment: s; }
+  .hero__card li::before {
+    content: counter(s); display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%;
+    background: var(--lime); color: var(--forest); font-size: 0.72rem; font-weight: 800;
+  }
+
+  .service-card { text-decoration: none; color: inherit; }
+  .service-card h3 { color: var(--forest); }
+
+  .framework-mini { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: var(--radius); padding: clamp(1.25rem, 3vw, 2rem); }
+  .framework-mini ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.15rem; }
+  .framework-mini li {
+    display: flex; align-items: center; gap: 1rem; padding: 0.7rem 0.25rem; color: var(--white); font-weight: 700;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.14);
+  }
+  .framework-mini li:last-child { border-bottom: 0; color: var(--lime); }
+  .framework-mini span { font-size: 0.8rem; color: var(--lime); font-variant-numeric: tabular-nums; width: 1.6rem; }
+
+  .audience-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); }
+  .audience-grid li {
+    background: var(--white); border-radius: var(--radius); padding: 1.5rem; font-weight: 700; color: var(--forest);
+    display: flex; flex-direction: column; gap: 0.25rem; line-height: 1.35;
+  }
+</style>

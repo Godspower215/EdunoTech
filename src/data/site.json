@@ -1,0 +1,17 @@
+{
+  "name": "Edunotech",
+  "tagline": "Bridging education, innovation, and technology through practical solutions.",
+  "footerDescription": "Edunotech bridges education, innovation, and technology through practical solutions, learning experiences, and digital development.",
+  "logo": "/images/brand/edunotech-logo.png",
+  "logoOnDark": "",
+  "contact": {
+    "email": "edunotech.edu@gmail.com",
+    "phone": "",
+    "whatsapp": "+2348163776911",
+    "address": ""
+  },
+  "socials": [],
+  "analytics": {
+    "cloudflareToken": ""
+  }
+}

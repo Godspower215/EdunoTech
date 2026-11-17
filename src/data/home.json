@@ -1,0 +1,96 @@
+{
+  "hero": {
+    "eyebrow": "Technology and education company",
+    "headline": "We connect education, innovation, and technology to solve real problems.",
+    "text": "Edunotech is a technology and education company helping individuals and organisations understand, adopt, and apply technology through digital solutions, artificial intelligence, learning experiences, and practical innovation.",
+    "image": "/images/ecic/ecic-2026-award-winners.webp",
+    "imageAlt": "Three students holding framed certificates in front of the ECIC 2026 backdrop",
+    "imagePlaceholder": "Hero photograph: an authentic learning or technology environment, such as students working together on a practical project"
+  },
+  "intro": {
+    "heading": "More than technology. A practical approach to progress.",
+    "paragraphs": [
+      "At Edunotech, we believe technology should be more than something people learn about or use occasionally. It should become a practical tool for understanding challenges, improving systems, creating opportunities, and solving problems.",
+      "Our work brings together education, digital capabilities, artificial intelligence, and innovation to help people and organisations make better use of technology.",
+      "We are interested not only in what technology can do, but also in the problems it can help us solve and the value it can create."
+    ]
+  },
+  "whatWeDo": {
+    "heading": "What We Do",
+    "text": "We work across education and technology, providing practical services and developing experiences that connect knowledge with real-world application."
+  },
+  "approach": {
+    "heading": "How We Approach Technology",
+    "steps": [
+      {
+        "title": "Understand",
+        "text": "We begin by understanding the people, systems, needs, and challenges involved."
+      },
+      {
+        "title": "Discover",
+        "text": "We explore possibilities, identify opportunities, and examine what can be improved."
+      },
+      {
+        "title": "Design",
+        "text": "We develop ideas and approaches that respond to the actual needs of the situation."
+      },
+      {
+        "title": "Build",
+        "text": "We apply appropriate knowledge, technology, and resources to create practical solutions."
+      },
+      {
+        "title": "Improve",
+        "text": "We evaluate, learn, and refine our work to create better outcomes over time."
+      }
+    ]
+  },
+  "programme": {
+    "heading": "The Problem-Solving Experience",
+    "lead": "What if students learned not only how to use technology, but how to recognise problems, understand them, and create solutions?",
+    "paragraphs": [
+      "The Problem-Solving Experience is an educational experience powered by Edunotech. It is designed to help students develop observation, critical thinking, creativity, and practical problem-solving capabilities.",
+      "Through guided learning, reflection, practical exercises, and the application of technology, participants learn to move from identifying challenges to developing meaningful solutions."
+    ]
+  },
+  "ecic": {
+    "heading": "Edunotech Community Innovation Challenge (ECIC)",
+    "paragraphs": [
+      "We believe young people should have the opportunity to become active contributors to the development of their communities.",
+      "The Edunotech Community Innovation Challenge (ECIC) provides a platform for secondary school students to identify challenges around them, develop practical solutions, and present their ideas.",
+      "Through ECIC, we encourage a culture of observation, responsibility, creativity, and innovation."
+    ],
+    "image": "/images/ecic/ecic-2026-certificate-presentation.webp",
+    "imageAlt": "Students receiving a framed certificate on stage at ECIC 2026",
+    "imagePlaceholder": "Approved ECIC 2026 photograph, for example from the Grand Finale"
+  },
+  "audiences": {
+    "heading": "Who We Work With",
+    "text": "We welcome opportunities to work with people and organisations that believe in the practical value of education, technology, and innovation.",
+    "items": [
+      {
+        "icon": "school",
+        "title": "Schools and educational institutions"
+      },
+      {
+        "icon": "graduation",
+        "title": "Universities and tertiary institutions"
+      },
+      {
+        "icon": "building",
+        "title": "Businesses and organisations"
+      },
+      {
+        "icon": "lightbulb",
+        "title": "Students and young innovators"
+      },
+      {
+        "icon": "handshake",
+        "title": "Strategic and development partners"
+      }
+    ]
+  },
+  "cta": {
+    "heading": "Let's create something meaningful.",
+    "text": "Whether you are an institution seeking technology solutions, an organisation exploring AI adoption, or a potential partner interested in education and innovation, we would love to hear from you."
+  }
+}

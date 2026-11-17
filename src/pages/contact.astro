@@ -1,0 +1,82 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import Placeholder from '../components/Placeholder.astro';
+import ContactForm from '../components/ContactForm.astro';
+import contact from '../data/contact.json';
+import site from '../data/site.json';
+import { waLink, telLink } from '../lib/contact';
+
+const c = site.contact;
+const socials = site.socials as { platform: string; url: string }[];
+---
+<Base
+  title="Contact Edunotech | Enquiries and Partnerships"
+  description="Contact Edunotech for technology services, institutional engagements, educational programmes, and partnership opportunities."
+>
+  <PageHero eyebrow="Contact" title={contact.hero.headline} text={contact.hero.text} />
+
+  <section class="section">
+    <div class="container contact-grid">
+      <aside class="contact-side">
+        <h2 class="h3">Contact details</h2>
+        <ul class="details">
+          <li>
+            <span class="icon-badge"><Icon name="mail" /></span>
+            <div><strong>Email</strong>{c.email ? <a href={`mailto:${c.email}`}>{c.email}</a> : <Placeholder label="Official email" />}</div>
+          </li>
+          <li>
+            <span class="icon-badge"><Icon name="phone" /></span>
+            <div><strong>Telephone</strong>{c.phone ? <a href={telLink(c.phone)}>{c.phone}</a> : <Placeholder label="Business phone number" />}</div>
+          </li>
+          <li>
+            <span class="icon-badge"><Icon name="message" /></span>
+            <div><strong>WhatsApp</strong>{c.whatsapp ? <a href={waLink(c.whatsapp)} target="_blank" rel="noopener" data-event="whatsapp_click">Chat on WhatsApp</a> : <Placeholder label="WhatsApp number, if available" />}</div>
+          </li>
+          <li>
+            <span class="icon-badge"><Icon name="map-pin" /></span>
+            <div><strong>Office</strong>{c.address ? <span>{c.address}</span> : <Placeholder label="Address, if applicable" />}</div>
+          </li>
+          <li>
+            <span class="icon-badge"><Icon name="globe" /></span>
+            <div><strong>Social media</strong>
+              {socials.length ? (
+                <span class="socials">{socials.map((s) => <a href={s.url} target="_blank" rel="noopener me">{s.platform}</a>)}</span>
+              ) : <Placeholder label="Verified social links" />}
+            </div>
+          </li>
+        </ul>
+
+        <div class="start">
+          <h2 class="h3">{contact.direct.heading}</h2>
+          <p>{contact.direct.text}</p>
+          <a href="/contact?enquiry=general#enquiry-form" class="btn btn--secondary" data-event="cta_send_enquiry">Send an Enquiry <Icon name="arrow-right" size={18} /></a>
+        </div>
+      </aside>
+
+      <div class="form-panel" id="enquiry-form">
+        <h2 class="h3">Send us a message</h2>
+        <p class="muted">Fields marked <span class="req">*</span> are required.</p>
+        <ContactForm />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contact-grid { display: grid; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  @media (min-width: 960px) { .contact-grid { grid-template-columns: 0.8fr 1.2fr; } }
+  .h3 { font-size: var(--step-2); }
+  .details { list-style: none; margin: 0 0 2.5rem; padding: 0; display: grid; gap: 1.1rem; }
+  .details li { display: flex; gap: 1rem; align-items: flex-start; }
+  .details .icon-badge { margin: 0; width: 44px; height: 44px; }
+  .details div { display: grid; gap: 0.15rem; min-width: 0; overflow-wrap: anywhere; }
+  .details strong { color: var(--forest); font-size: 0.9rem; }
+  .socials { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .start { padding: 1.75rem; border-radius: var(--radius); background: var(--neutral); border-left: 4px solid var(--lime); }
+  .start .h3 { font-size: var(--step-1); }
+  .form-panel > .muted { margin-bottom: 1.5rem; }
+  #enquiry-form { scroll-margin-top: 96px; }
+  .req { color: #b42318; }
+</style>
