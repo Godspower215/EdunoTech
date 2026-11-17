@@ -198,7 +198,7 @@ const fmtDate = (d: string) => new Date(d).toLocaleDateString('en-GB', { day: 'n
           <h2 id={`${sp.id}-title`}>{sp.heading}</h2>
           <p class="host__name">{sp.name ? sp.name : <Placeholder label={sp.namePh} />}</p>
           <p class="host__role">{sp.role}</p>
-          {sp.bio ? <p>{sp.bio}</p> : <p><Placeholder label={sp.bioPh} /></p>}
+          {sp.bio ? sp.bio.split(/\n\s*\n/).map((para) => <p>{para}</p>) : <p><Placeholder label={sp.bioPh} /></p>}
           {idx === 0 && <a class="text-link" href="#ecic-2026">More photos in the gallery <Icon name="arrow-right" size={16} /></a>}
         </div>
       </div>
