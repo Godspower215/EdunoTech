@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Button from '../components/Button.astro';
 import Icon from '../components/Icon.astro';
 import ImageSlot from '../components/ImageSlot.astro';
+import HeroNetwork from '../components/HeroNetwork.astro';
 import Process from '../components/Process.astro';
 import CtaBand from '../components/CtaBand.astro';
 import home from '../data/home.json';
@@ -10,32 +11,27 @@ import servicesData from '../data/services.json';
 import pse from '../data/pse.json';
 
 const services = servicesData.services as any[];
+const hl = home.hero.headline.endsWith(home.hero.highlight ?? '\u0000') ? home.hero.highlight : '';
 ---
 <Base
   title="Edunotech | Education, Innovation and Technology"
   description="Discover Edunotech, a technology and education company connecting innovation, digital solutions, and practical problem-solving."
 >
-  <!-- Hero -->
-  <section class="hero">
-    <div class="container hero__grid">
-      <div class="hero__copy">
-        <p class="eyebrow">{home.hero.eyebrow}</p>
-        <h1>{home.hero.headline}</h1>
-        <p class="lead">{home.hero.text}</p>
-        <div class="btn-row">
-          <Button href="/services" arrow event="cta_hero_services">Explore Our Services</Button>
-          <Button href="/contact" variant="secondary" event="cta_hero_work_with_us">Work With Us</Button>
-        </div>
+  <!-- Hero: solid brand colour, bold type, network graphic -->
+  <section class="hero on-dark">
+    <div class="hero__net" aria-hidden="true"><HeroNetwork /></div>
+    <p class="hero__side" aria-hidden="true">Bridging education, innovation and technology</p>
+    <div class="container hero__inner">
+      <p class="hero__chip">{home.hero.eyebrow}</p>
+      <h1>{hl ? <>{home.hero.headline.slice(0, -hl.length).trimEnd()} <span>{hl}</span></> : home.hero.headline}</h1>
+      <p class="hero__lead">{home.hero.text}</p>
+      <div class="btn-row">
+        <Button href="/services" variant="lime" arrow event="cta_hero_services">Explore Our Services</Button>
+        <Button href="/contact" variant="ghost-light" event="cta_hero_work_with_us">Work With Us</Button>
       </div>
-      <div class="hero__visual">
-        <ImageSlot src={home.hero.image} alt={home.hero.imageAlt} need={home.hero.imagePlaceholder} ratio="4 / 5" eager />
-        <div class="hero__card" aria-hidden="true">
-          <p class="hero__card-title">How we work</p>
-          <ol>
-            {home.approach.steps.map((s) => <li>{s.title}</li>)}
-          </ol>
-        </div>
-      </div>
+      <ol class="hero__steps" aria-label="How we work">
+        {home.approach.steps.map((s) => <li>{s.title}</li>)}
+      </ol>
     </div>
   </section>
 
@@ -142,24 +138,37 @@ const services = servicesData.services as any[];
 </Base>
 
 <style>
-  .hero { padding-block: clamp(2.5rem, 6vw, 5rem) clamp(3.5rem, 7vw, 6rem); background: linear-gradient(180deg, var(--neutral) 0%, var(--white) 100%); }
-  .hero__grid { display: grid; gap: clamp(2.5rem, 5vw, 4rem); align-items: center; }
-  @media (min-width: 960px) { .hero__grid { grid-template-columns: 1.15fr 0.85fr; } }
-  .hero h1 { max-width: 18ch; }
-  .hero .lead { color: var(--muted); max-width: 58ch; }
-  .hero__visual { position: relative; }
-  .hero__card {
-    position: absolute; right: -1.5rem; top: 2rem; background: var(--white); border-radius: 12px;
-    padding: 1rem 1.25rem; box-shadow: var(--shadow); border: 1px solid var(--grey); min-width: 200px;
+  .hero {
+    position: relative; overflow: hidden; isolation: isolate;
+    background: var(--forest-2); color: var(--white);
+    min-height: min(92vh, 860px); display: flex; align-items: center;
+    padding-block: clamp(4rem, 9vw, 7rem);
   }
-  @media (max-width: 1100px) { .hero__card { right: 1rem; top: 1rem; } }
-  .hero__card-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; color: var(--emerald-ink); margin-bottom: 0.5rem; }
-  .hero__card ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.3rem; counter-reset: s; }
-  .hero__card li { display: flex; align-items: center; gap: 0.55rem; font-weight: 700; color: var(--forest); font-size: 0.93rem; counter-increment: s; }
-  .hero__card li::before {
-    content: counter(s); display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%;
-    background: var(--lime); color: var(--forest); font-size: 0.72rem; font-weight: 800;
+  .hero__net { position: absolute; z-index: -1; width: min(720px, 50vw); right: -9%; top: 50%; translate: 0 -50%; }
+  .hero__inner { position: relative; }
+  @media (max-width: 899px) { .hero__net { width: 120vw; right: -60vw; top: 30%; opacity: 0.4; } }
+  .hero__side {
+    position: absolute; left: clamp(0.5rem, 2vw, 1.75rem); top: 50%; translate: 0 -50%;
+    writing-mode: vertical-rl; rotate: 180deg; margin: 0;
+    font-size: 0.72rem; letter-spacing: 0.35em; text-transform: uppercase; color: rgba(255, 255, 255, 0.45);
   }
+  @media (max-width: 1100px) { .hero__side { display: none; } }
+  .hero__chip {
+    display: inline-block; background: var(--lime); color: var(--forest); font-weight: 800; font-size: 0.78rem;
+    letter-spacing: 0.08em; text-transform: uppercase; padding: 0.35rem 0.7rem; border-radius: 4px; margin-bottom: 1.75rem;
+  }
+  .hero h1 {
+    color: var(--white); text-transform: uppercase; font-weight: 800; letter-spacing: -0.035em; line-height: 0.98;
+    font-size: clamp(2.1rem, 1.1rem + 4.2vw, 4.6rem); max-width: 17ch; margin-bottom: 1.5rem;
+  }
+  .hero h1 span { color: var(--lime); }
+  .hero__lead { color: var(--on-dark-muted); font-size: var(--step-1); line-height: 1.55; max-width: 54ch; }
+  .hero__steps {
+    list-style: none; padding: 0; margin: clamp(2.5rem, 6vw, 4.5rem) 0 0; display: flex; flex-wrap: wrap; gap: 0.5rem 1.75rem;
+    font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255, 255, 255, 0.55);
+  }
+  .hero__steps li { display: inline-flex; align-items: center; gap: 0.6rem; }
+  .hero__steps li::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--lime); }
 
   .service-card { text-decoration: none; color: inherit; }
   .service-card h3 { color: var(--forest); }

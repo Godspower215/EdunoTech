@@ -61,10 +61,8 @@ collections:
             fields:
               - { name: eyebrow, label: Small label, widget: string }
               - { name: headline, label: Headline, widget: string }
+              - { name: highlight, label: Highlighted ending of the headline (shown in lime), widget: string, required: false, hint: "Must match the last words of the headline exactly." }
               - { name: text, label: Supporting text, widget: text }
-              - { name: image, label: Hero photo, widget: image, required: false }
-              - { name: imageAlt, label: Photo description (alt text), widget: string, required: false }
-              - { name: imagePlaceholder, label: Placeholder note (shown until a photo is added), widget: string }
           - name: intro
             label: Introduction
             widget: object
