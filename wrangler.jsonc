@@ -27,5 +27,7 @@
   //   "ACCESS_TEAM_DOMAIN": "https://YOUR-TEAM.cloudflareaccess.com",
   //   "ACCESS_AUD": "PASTE-AUD-TAG-HERE"
   // },
+  // Required by Cloudflare's branch preview builds (npx wrangler preview).
+  "previews": {},
   "observability": { "enabled": true }
 }
