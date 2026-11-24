@@ -17,11 +17,10 @@
   },
   // Keep variables added in the Cloudflare dashboard when deploying from Git.
   "keep_vars": true,
-  // Submissions database (Cloudflare D1). Uncomment and paste the database ID
-  // from Storage & databases > D1 once the database has been created.
-  // "d1_databases": [
-  //   { "binding": "DB", "database_name": "edunotech-submissions", "database_id": "PASTE-ID-HERE" }
-  // ],
+  // Submissions database (Cloudflare D1, Storage & databases > D1).
+  "d1_databases": [
+    { "binding": "DB", "database_name": "edunotech-submissions", "database_id": "cc4222e2-f97b-456a-8b03-c552807b513e" }
+  ],
   // Cloudflare Access settings for /dashboard (not secret). Filled in during setup.
   // "vars": {
   //   "ACCESS_TEAM_DOMAIN": "https://YOUR-TEAM.cloudflareaccess.com",
