@@ -20,7 +20,8 @@ npx wrangler pages dev dist   # full site + /api/submit at http://localhost:8788
 | Page templates | `src/pages/*.astro` |
 | Design tokens (colours, type, spacing) | `src/styles/global.css` (top of file) |
 | Shared components | `src/components/` |
-| Form endpoint | `functions/api/submit.ts` |
+| Form endpoint | `functions/api/submit.ts` (saves to D1, optional email) |
+| Submissions dashboard (`/dashboard`, behind Cloudflare Access) | `worker/admin.ts`, `worker/dashboard-ui.ts`, `worker/access.ts`, `worker/db.ts` |
 | Insights articles (future) | `src/content/insights/*.md` (section appears automatically once a post exists) |
 | CMS config | `public/admin/config.yml` |
 | Security headers | `public/_headers` |

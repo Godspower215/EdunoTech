@@ -1,9 +1,11 @@
 /**
- * Cloudflare Workers entry point. Serves the built static site from ./dist
- * and routes POST /api/submit to the same form handler used on Pages
- * (functions/api/submit.ts), so the site works on either product.
+ * Cloudflare Workers entry point.
+ *   POST /api/submit   website forms (functions/api/submit.ts): saved to D1, optionally emailed
+ *   /dashboard/*       private submissions dashboard behind Cloudflare Access (worker/admin.ts)
+ *   everything else    the built static site from ./dist
  */
 import { onRequestPost } from '../functions/api/submit';
+import { handleDashboard } from './admin';
 
 interface Env {
   ASSETS: { fetch: (req: Request) => Promise<Response> };
@@ -21,6 +23,9 @@ const app = {
         });
       }
       return onRequestPost({ request, env: env as any });
+    }
+    if (url.pathname === '/dashboard' || url.pathname.startsWith('/dashboard/')) {
+      return handleDashboard(request, env as any);
     }
     return env.ASSETS.fetch(request);
   },

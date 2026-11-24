@@ -3,6 +3,7 @@ import SocialIcon from './SocialIcon.astro';
 import site from '../data/site.json';
 import Logo from './Logo.astro';
 import Placeholder from './Placeholder.astro';
+import NewsletterForm from './NewsletterForm.astro';
 import { waLink, telLink } from '../lib/contact';
 
 interface Props { statement?: string; }
@@ -57,6 +58,13 @@ const socials = site.socials as { platform: string; url: string }[];
       </ul>
     </div>
   </div>
+  <div class="container site-footer__newsletter">
+    <div>
+      <h2 id="newsletter-heading">Newsletter</h2>
+      <p>Occasional updates on Edunotech programmes and the Edunotech Community Innovation Challenge.</p>
+    </div>
+    <NewsletterForm />
+  </div>
   <div class="container site-footer__bottom">
     <p>© {year} Edunotech. All rights reserved.</p>
     <ul>
@@ -84,6 +92,11 @@ const socials = site.socials as { platform: string; url: string }[];
   .site-footer h2.mt { margin-top: 1.75rem; }
   .site-footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
   .site-footer__social { margin-top: 1.25rem !important; display: flex !important; flex-wrap: wrap; gap: 0.6rem !important; }
+  .site-footer__newsletter {
+    display: grid; gap: 1rem 2.5rem; padding-block: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  @media (min-width: 960px) { .site-footer__newsletter { grid-template-columns: 1fr 1.4fr; align-items: start; } }
+  .site-footer__newsletter p { margin: 0; max-width: 40ch; }
   .site-footer__bottom {
     display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: center;
     padding-block: 1.5rem; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.88rem;

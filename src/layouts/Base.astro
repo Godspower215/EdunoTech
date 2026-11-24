@@ -33,6 +33,7 @@ const org = {
   ...((site.socials as { url: string }[]).length ? { sameAs: (site.socials as { url: string }[]).map((s) => s.url) } : {}),
 };
 const cfToken = site.analytics.cloudflareToken;
+const turnstileKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 ---
 <!doctype html>
 <html lang="en-GB">
@@ -62,6 +63,7 @@ const cfToken = site.analytics.cloudflareToken;
     <meta name="twitter:card" content="summary_large_image" />
 
     <script type="application/ld+json" set:html={JSON.stringify([org, ...jsonLd])} />
+    {turnstileKey && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
     {cfToken && (
       <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={JSON.stringify({ token: cfToken })}></script>
     )}
