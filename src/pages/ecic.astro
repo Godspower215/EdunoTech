@@ -26,11 +26,27 @@ const partners = ((ecic as any).partners2026 ?? []) as string[];
 type Winner = { show: boolean; heading: string; name: string; school: string; project: string; photo: string; photoAlt: string };
 const winner = (ecic as any).winner as Winner | undefined;
 const announcements = ecic.announcements as Announcement[];
+const e26 = ecic.edition2026 as typeof ecic.edition2026 & { finaleVenue?: string; finaleCity?: string };
+const eventLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: 'Edunotech Community Innovation Challenge 2026 Grand Finale',
+  description: ecic.hero.text ?? '',
+  startDate: e26.finaleDate,
+  eventStatus: 'https://schema.org/EventScheduled',
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  image: [new URL(ecic.hero.image, Astro.site).toString()],
+  organizer: { '@id': new URL('/#organization', Astro.site).toString() },
+  ...(e26.finaleVenue
+    ? { location: { '@type': 'Place', name: e26.finaleVenue, address: { '@type': 'PostalAddress', addressLocality: e26.finaleCity, addressCountry: 'NG' } } }
+    : {}),
+};
 const fmtDate = (d: string) => new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 ---
 <Base
   title="Edunotech Community Innovation Challenge | ECIC"
   image="/og-ecic.jpg"
+  jsonLd={e26.finaleVenue ? [eventLd] : []}
   imageAlt="Students holding a framed certificate in front of the ECIC 2026 backdrop"
   description="Explore ECIC, a student-focused innovation initiative encouraging young people to identify community problems and develop solutions."
   footerStatement={ecic.footerStatement}
@@ -113,7 +129,7 @@ const fmtDate = (d: string) => new Date(d).toLocaleDateString('en-GB', { day: 'n
         </div>
         <div>
           {ecic.edition2026.paragraphs.map((p) => <p>{p}</p>)}
-          <p class="finale"><Icon name="calendar" size={20} /> Grand Finale held on <time datetime={ecic.edition2026.finaleDate}>{fmtDate(ecic.edition2026.finaleDate)}</time></p>
+          <p class="finale"><Icon name="calendar" size={20} /> Grand Finale held on <time datetime={ecic.edition2026.finaleDate}>{fmtDate(ecic.edition2026.finaleDate)}</time>{e26.finaleVenue && ` at ${[e26.finaleVenue, e26.finaleCity].filter(Boolean).join(', ')}`}</p>
         </div>
       </div>
 
