@@ -11,7 +11,21 @@
     "directory": "./dist",
     "binding": "ASSETS",
     "html_handling": "auto-trailing-slash",
-    "not_found_handling": "404-page"
+    "not_found_handling": "404-page",
+    // The form handler and the private dashboard always go to the Worker code.
+    "run_worker_first": ["/api/*", "/dashboard", "/dashboard/*"]
   },
+  // Keep variables added in the Cloudflare dashboard when deploying from Git.
+  "keep_vars": true,
+  // Submissions database (Cloudflare D1). Uncomment and paste the database ID
+  // from Storage & databases > D1 once the database has been created.
+  // "d1_databases": [
+  //   { "binding": "DB", "database_name": "edunotech-submissions", "database_id": "PASTE-ID-HERE" }
+  // ],
+  // Cloudflare Access settings for /dashboard (not secret). Filled in during setup.
+  // "vars": {
+  //   "ACCESS_TEAM_DOMAIN": "https://YOUR-TEAM.cloudflareaccess.com",
+  //   "ACCESS_AUD": "PASTE-AUD-TAG-HERE"
+  // },
   "observability": { "enabled": true }
 }

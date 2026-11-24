@@ -31,6 +31,14 @@ Recommended setup (needs your go-ahead before any accounts are created):
 3. In the Cloudflare project > Settings > Variables and Secrets, add the variables listed in `.env.example`.
 4. Submit both forms on the live site and confirm both emails arrive.
 
+## 3a. Submissions dashboard
+
+Every form (contact, ECIC interest, footer newsletter) is saved to a Cloudflare D1 database and tagged as **Newsletter**, **Inquiry**, **Partnership** (contact form "Institutional Partnership" and "ECIC Sponsorship or Partnership") or **ECIC** (ECIC interest form and contact form "ECIC Participation"). Browse, search, filter, mark handled, delete and download CSV at `https://edunotech.com.ng/dashboard`.
+
+Login is Cloudflare Access (one-time code by email). The Worker also checks the Access token itself and stays locked until `ACCESS_TEAM_DOMAIN` and `ACCESS_AUD` are set. Setup: create the D1 database, paste its ID into `wrangler.jsonc`, create the Access application for `edunotech.com.ng/dashboard`, paste the team domain and AUD into `wrangler.jsonc` `vars`. The table is created automatically on first use.
+
+Email via Resend is now optional: submissions are kept in the dashboard either way.
+
 ## 4. Content manager (CMS)
 
 1. The CMS points at `Godspower215/edunotech` (set in `public/admin/config.yml`).
