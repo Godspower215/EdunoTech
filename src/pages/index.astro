@@ -12,9 +12,17 @@ import pse from '../data/pse.json';
 
 const services = servicesData.services as any[];
 const hl = home.hero.headline.endsWith(home.hero.highlight ?? '\u0000') ? home.hero.highlight : '';
+const websiteLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Edunotech',
+  url: new URL('/', Astro.site).toString(),
+  publisher: { '@id': new URL('/#organization', Astro.site).toString() },
+};
 ---
 <Base
   title="Edunotech | Education, Innovation and Technology"
+  jsonLd={[websiteLd]}
   description="Discover Edunotech, a technology and education company connecting innovation, digital solutions, and practical problem-solving."
 >
   <!-- Hero: solid brand colour, bold type, network graphic -->

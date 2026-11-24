@@ -22,6 +22,14 @@ export default {
       }
       return onRequestPost({ request, env: env as any });
     }
-    return env.ASSETS.fetch(request);
+    const res = await env.ASSETS.fetch(request);
+    // The same site is also reachable on *.workers.dev addresses. Tell search
+    // engines not to index those copies, so only edunotech.com.ng shows in results.
+    if (url.hostname.endsWith('.workers.dev')) {
+      const tagged = new Response(res.body, res);
+      tagged.headers.set('X-Robots-Tag', 'noindex');
+      return tagged;
+    }
+    return res;
   },
 };

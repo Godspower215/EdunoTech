@@ -25,6 +25,7 @@ collections:
           - { name: footerDescription, label: Footer description, widget: text }
           - { name: logo, label: Logo (for light backgrounds), widget: image, required: false, hint: "Upload the official logo. Leave empty to show the temporary text wordmark." }
           - { name: logoOnDark, label: Logo (for dark backgrounds, e.g. white version), widget: image, required: false }
+          - { name: founder, label: Founder name (used for Google search info), widget: string, required: false }
           - name: contact
             label: Contact details
             widget: object

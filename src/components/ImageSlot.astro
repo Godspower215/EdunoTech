@@ -8,7 +8,7 @@ const { src, alt = '', need, ratio = '4 / 3', light = false, class: className, e
 ---
 <figure class:list={['image-slot', { 'image-slot--light': light }, className]} style={`aspect-ratio:${ratio};margin:0`}>
   {src ? (
-    <img src={src} alt={alt} loading={eager ? 'eager' : 'lazy'} decoding="async" />
+    <img src={src} alt={alt} loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} decoding="async" />
   ) : (
     <figcaption class="image-slot__label" data-placeholder="photo"><Icon name="camera" size={16} /> Photo needed: {need}</figcaption>
   )}

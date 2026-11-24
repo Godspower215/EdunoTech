@@ -12,7 +12,7 @@ const courseLd = {
   '@type': 'Course',
   name: 'The Problem-Solving Experience',
   description: pse.hero.text,
-  provider: { '@type': 'Organization', name: 'Edunotech' },
+  provider: { '@type': 'Organization', '@id': new URL('/#organization', Astro.site).toString(), name: 'Edunotech' },
 };
 ---
 <Base

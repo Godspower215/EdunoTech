@@ -12,19 +12,24 @@ interface Props {
   image?: string;
   noindex?: boolean;
   footerStatement?: string;
+  imageAlt?: string;
   jsonLd?: Record<string, unknown>[];
 }
-const { title, description, image = '/og-default.png', noindex = false, footerStatement, jsonLd = [] } = Astro.props;
+const { title, description, image = '/og-default.png', imageAlt = 'Edunotech logo', noindex = false, footerStatement, jsonLd = [] } = Astro.props;
 const canonical = new URL(Astro.url.pathname.replace(/\.html$/, '').replace(/(^|\/)index$/, '$1'), Astro.site);
 const ogImage = new URL(image, Astro.site);
+const home = new URL('/', Astro.site).toString();
 const org = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
+  '@id': `${home}#organization`,
   name: site.name,
-  url: new URL('/', Astro.site).toString(),
+  url: home,
   description: site.footerDescription,
   ...(site.logo ? { logo: new URL(site.logo, Astro.site).toString() } : {}),
   ...(site.contact.email ? { email: site.contact.email } : {}),
+  ...(site.contact.phone ? { telephone: site.contact.phone } : {}),
+  ...(site.founder ? { founder: { '@type': 'Person', name: site.founder } } : {}),
   ...((site.socials as { url: string }[]).length ? { sameAs: (site.socials as { url: string }[]).map((s) => s.url) } : {}),
 };
 const cfToken = site.analytics.cloudflareToken;
@@ -53,6 +58,7 @@ const cfToken = site.analytics.cloudflareToken;
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="en_GB" />
+    <meta property="og:image:alt" content={imageAlt} />
     <meta name="twitter:card" content="summary_large_image" />
 
     <script type="application/ld+json" set:html={JSON.stringify([org, ...jsonLd])} />
