@@ -10,7 +10,7 @@ interface Env {
   [key: string]: unknown;
 }
 
-export default {
+const app = {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
     if (url.pathname === '/api/submit') {
@@ -22,14 +22,18 @@ export default {
       }
       return onRequestPost({ request, env: env as any });
     }
-    const res = await env.ASSETS.fetch(request);
-    // The same site is also reachable on *.workers.dev addresses. Tell search
-    // engines not to index those copies, so only edunotech.com.ng shows in results.
-    if (url.hostname.endsWith('.workers.dev')) {
-      const tagged = new Response(res.body, res);
-      tagged.headers.set('X-Robots-Tag', 'noindex');
-      return tagged;
-    }
-    return res;
+    return env.ASSETS.fetch(request);
+  },
+};
+
+// The same site is also reachable on *.workers.dev addresses. Tell search
+// engines not to index those copies, so only edunotech.com.ng shows in results.
+export default {
+  async fetch(request: Request, env: Env): Promise<Response> {
+    const res = await app.fetch(request, env);
+    if (!new URL(request.url).hostname.endsWith('.workers.dev')) return res;
+    const tagged = new Response(res.body, res);
+    tagged.headers.set('X-Robots-Tag', 'noindex');
+    return tagged;
   },
 };
