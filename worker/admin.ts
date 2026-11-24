@@ -8,9 +8,17 @@
  *   PATCH  /dashboard/api/submissions/:id   { status: "new" | "handled" }
  *   DELETE /dashboard/api/submissions/:id   permanent delete (for data deletion requests)
  *
- * Every route checks the Cloudflare Access token first (see access.ts).
+ *   GET    /dashboard/login                 password sign-in page (password mode)
+ *   POST   /dashboard/login                 checks the password, sets the session cookie
+ *   POST   /dashboard/logout                signs out
+ *
+ * Login, in order of preference:
+ *   1. Cloudflare Access, if ACCESS_TEAM_DOMAIN and ACCESS_AUD are set (see access.ts).
+ *   2. Otherwise a password in the Worker secret ADMIN_PASSWORD (see password.ts).
+ *   3. If neither is set, the dashboard stays locked.
  */
 import { verifyAccess, type AccessEnv } from './access';
+import { clearCookie, handleLogin, hasSession, loginPage, passwordConfigured, type PasswordEnv } from './password';
 import {
   CATEGORY_LABELS,
   allSubmissions,
@@ -23,8 +31,34 @@ import {
 } from './db';
 import { DASHBOARD_HTML, DASHBOARD_JS } from './dashboard-ui';
 
-export interface AdminEnv extends AccessEnv {
+export interface AdminEnv extends AccessEnv, PasswordEnv {
   DB?: D1Database;
+}
+
+type Auth = { ok: true; email: string } | { ok: false; response: Response };
+
+async function authenticate(request: Request, env: AdminEnv, path: string): Promise<Auth> {
+  const isApi = path.startsWith('/dashboard/api/');
+  if (env.ACCESS_TEAM_DOMAIN && env.ACCESS_AUD) {
+    const a = await verifyAccess(request, env);
+    if (a.ok) return a;
+    return {
+      ok: false,
+      response: isApi
+        ? json({ ok: false, error: 'Please sign in again.' }, a.status)
+        : page('Sign-in required', 'Please open this page on the main website address so Cloudflare Access can ask you to sign in.', a.status),
+    };
+  }
+  if (passwordConfigured(env)) {
+    if (await hasSession(request, env)) return { ok: true, email: '' };
+    return {
+      ok: false,
+      response: isApi
+        ? json({ ok: false, error: 'Your session has ended. Please refresh the page and sign in again.' }, 401)
+        : new Response(null, { status: 303, headers: { Location: '/dashboard/login', 'Cache-Control': 'no-store' } }),
+    };
+  }
+  return { ok: false, response: page('Dashboard not switched on yet', 'No dashboard password has been set for this site yet, so the dashboard stays locked.', 503) };
 }
 
 const PAGE_SIZE = 50;
@@ -91,15 +125,22 @@ function toCsv(rows: Submission[]): string {
 export async function handleDashboard(request: Request, env: AdminEnv): Promise<Response> {
   const url = new URL(request.url);
 
-  const auth = await verifyAccess(request, env);
-  if (!auth.ok) {
-    if (auth.reason === 'not-configured') {
-      return page('Dashboard not switched on yet', 'Cloudflare Access has not been connected to this site yet, so the dashboard stays locked.', 503);
-    }
-    return page('Sign-in required', 'Please open this page on the main website address so Cloudflare Access can ask you to sign in.', auth.status);
+  const path = url.pathname.replace(/\/+$/, '') || '/dashboard';
+  const accessMode = Boolean(env.ACCESS_TEAM_DOMAIN && env.ACCESS_AUD);
+
+  if (path === '/dashboard/logout' && request.method === 'POST') {
+    const to = accessMode ? '/cdn-cgi/access/logout' : '/dashboard/login';
+    return new Response(null, { status: 303, headers: { Location: to, 'Set-Cookie': clearCookie, 'Cache-Control': 'no-store' } });
+  }
+  if (path === '/dashboard/login' && !accessMode && passwordConfigured(env)) {
+    if (request.method === 'POST') return handleLogin(request, env);
+    if (await hasSession(request, env)) return new Response(null, { status: 303, headers: { Location: '/dashboard' } });
+    return loginPage();
   }
 
-  const path = url.pathname.replace(/\/+$/, '') || '/dashboard';
+  const authResult = await authenticate(request, env, path);
+  if (!authResult.ok) return authResult.response;
+  const auth = authResult;
 
   if (path === '/dashboard' && request.method === 'GET') {
     return new Response(DASHBOARD_HTML, {

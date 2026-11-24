@@ -26,6 +26,8 @@ export const DASHBOARD_HTML = `<!doctype html>
   .top h1 span { color: var(--lime); }
   .top .who { font-size: .88rem; opacity: .9; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
   .top a { color: #fff; }
+  .top .out { margin: 0; }
+  .top .out button { background: none; border: 0; color: #fff; text-decoration: underline; cursor: pointer; padding: 0; font-size: inherit; }
   .wrap { max-width: 1200px; margin: 0 auto; padding-inline: 16px; }
   main { padding-block: 1.25rem 3rem; }
   .tabs { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1rem; }
@@ -78,7 +80,7 @@ export const DASHBOARD_HTML = `<!doctype html>
 <body>
 <header class="top"><div class="wrap">
   <h1>Edunotech <span>Submissions</span></h1>
-  <div class="who"><span id="me"></span><a href="/">View website</a><a href="/cdn-cgi/access/logout">Sign out</a></div>
+  <div class="who"><span id="me"></span><a href="/">View website</a><form method="post" action="/dashboard/logout" class="out"><button type="submit">Sign out</button></form></div>
 </div></header>
 <main class="wrap">
   <div class="tabs" id="tabs" role="group" aria-label="Category"></div>
