@@ -1,25 +1,30 @@
 /**
- * Cloudflare Pages Function: POST /api/submit
+ * Form handler: POST /api/submit (called from worker/index.ts)
  *
- * Receives the Contact and ECIC-interest forms, validates and sanitises them,
- * checks spam protection, and emails the submission to the approved company
- * address using Resend (https://resend.com).
+ * Receives the Contact, ECIC-interest and newsletter forms, validates and
+ * sanitises them, checks spam protection, then:
+ *   1. saves the submission to Cloudflare D1 (binding DB), tagged with a
+ *      category (newsletter, inquiry, partnership, ecic) for the /dashboard;
+ *   2. if Resend is configured, also emails contact and ECIC submissions.
  *
- * Required environment variables (Cloudflare Pages > Settings > Variables and Secrets):
+ * Bindings and variables (Workers > edunotech > Settings):
+ *   DB                    D1       submissions database (see wrangler.jsonc)
+ * Optional, for email notifications (https://resend.com):
  *   RESEND_API_KEY        secret   API key from Resend
  *   MAIL_FROM             text     e.g. "Edunotech Website <website@yourdomain.com>" (domain verified in Resend)
  *   MAIL_TO               text     approved company inbox for general enquiries
- * Optional:
  *   MAIL_TO_ECIC          text     separate inbox for ECIC interest (defaults to MAIL_TO)
  *   TURNSTILE_SECRET_KEY  secret   enables Cloudflare Turnstile verification
  *   ALLOWED_ORIGINS       text     comma-separated origins allowed to post (defaults to same origin)
  *
- * Nothing secret ever reaches the browser. Until the variables are set, the
- * endpoint answers 503 so the form shows an honest error instead of
- * pretending to send.
+ * Nothing secret ever reaches the browser. If neither the database nor email
+ * is connected, the endpoint answers 503 so the form shows an honest error
+ * instead of pretending to send.
  */
+import { saveSubmission, type Category, type D1Database } from '../../worker/db';
 
 interface Env {
+  DB?: D1Database;
   RESEND_API_KEY?: string;
   MAIL_FROM?: string;
   MAIL_TO?: string;
@@ -51,6 +56,9 @@ const ECIC_INTERESTS = new Set([
   'Media and communications',
   'Other support',
 ]);
+
+/** Contact-form enquiry types filed under "Partnership" in the dashboard. */
+const PARTNERSHIP_TYPES = new Set(['partnership', 'ecic-sponsor']);
 
 const EMAIL_RE = /^[^\s@<>()"',;:]+@[^\s@<>()"',;:]+\.[a-z]{2,}$/i;
 const PHONE_RE = /^[0-9+()\-\s]{6,40}$/;
@@ -106,7 +114,8 @@ export const onRequestPost = async ({ request, env }: { request: Request; env: E
     return json({ ok: true });
   }
 
-  const formType = input.formType === 'ecic-interest' ? 'ecic-interest' : 'contact';
+  const formType =
+    input.formType === 'ecic-interest' ? 'ecic-interest' : input.formType === 'newsletter' ? 'newsletter' : 'contact';
   const name = oneLine(clean(input.name, 120));
   const email = oneLine(clean(input.email, 200));
   const organisation = oneLine(clean(input.organisation, 200));
@@ -115,22 +124,25 @@ export const onRequestPost = async ({ request, env }: { request: Request; env: E
   const consent = input.consent === 'yes';
 
   const errors: string[] = [];
-  if (!name) errors.push('name');
   if (!EMAIL_RE.test(email)) errors.push('email');
-  if (phone && !PHONE_RE.test(phone)) errors.push('phone');
-  if (message.length < 10) errors.push('message');
   if (!consent) errors.push('consent');
+  if (formType !== 'newsletter') {
+    if (!name) errors.push('name');
+    if (phone && !PHONE_RE.test(phone)) errors.push('phone');
+    if (message.length < 10) errors.push('message');
+  }
 
   let subject = '';
+  let enquiryType = '';
   let enquiryLabel = '';
   let interests: string[] = [];
   if (formType === 'contact') {
-    const t = clean(input.enquiryType, 40);
-    enquiryLabel = ENQUIRY_LABELS[t] || '';
+    enquiryType = clean(input.enquiryType, 40);
+    enquiryLabel = ENQUIRY_LABELS[enquiryType] || '';
     subject = oneLine(clean(input.subject, 200));
     if (!enquiryLabel) errors.push('enquiryType');
     if (!subject) errors.push('subject');
-  } else {
+  } else if (formType === 'ecic-interest') {
     const list = Array.isArray(input.interests) ? input.interests : [input.interests];
     interests = list.map((v) => clean(v, 80)).filter((v) => ECIC_INTERESTS.has(v));
     if (!interests.length) errors.push('interests');
@@ -144,11 +156,49 @@ export const onRequestPost = async ({ request, env }: { request: Request; env: E
     if (!ok) return json({ ok: false, error: 'Spam check failed. Please refresh the page.' }, 400);
   }
 
-  if (!env.RESEND_API_KEY || !env.MAIL_FROM || !env.MAIL_TO) {
+  const category: Category =
+    formType === 'newsletter'
+      ? 'newsletter'
+      : formType === 'ecic-interest' || enquiryType === 'ecic-participation'
+        ? 'ecic'
+        : PARTNERSHIP_TYPES.has(enquiryType)
+          ? 'partnership'
+          : 'inquiry';
+
+  const emailReady = Boolean(env.RESEND_API_KEY && env.MAIL_FROM && env.MAIL_TO);
+  if (!env.DB && !emailReady) {
     return json({ ok: false, error: 'The form is not connected to an inbox yet.' }, 503);
   }
 
-  const to = formType === 'ecic-interest' ? env.MAIL_TO_ECIC || env.MAIL_TO : env.MAIL_TO;
+  // 1. Save to the database. This is the record of truth for the dashboard.
+  let saved = false;
+  if (env.DB) {
+    try {
+      const result = await saveSubmission(env.DB, {
+        category,
+        form: formType === 'contact' ? 'Contact' : formType === 'ecic-interest' ? 'ECIC interest' : 'Newsletter',
+        topic: enquiryLabel || interests.join(', '),
+        name,
+        email,
+        phone,
+        organisation,
+        subject,
+        message,
+        consent: consent ? 1 : 0,
+      });
+      if (result === 'duplicate') return json({ ok: true });
+      saved = true;
+    } catch (e) {
+      console.error('D1 save failed', e);
+    }
+  }
+
+  // 2. Email notification (contact and ECIC only; newsletter signups are just listed).
+  if (!emailReady || formType === 'newsletter') {
+    return saved ? json({ ok: true }) : json({ ok: false, error: 'We could not save your details right now.' }, 500);
+  }
+
+  const to = formType === 'ecic-interest' ? env.MAIL_TO_ECIC || env.MAIL_TO! : env.MAIL_TO!;
   const tag = formType === 'ecic-interest' ? '[ECIC 2027 Interest]' : `[Website Enquiry: ${enquiryLabel}]`;
   const emailSubject = formType === 'ecic-interest' ? `${tag} ${name}` : `${tag} ${subject}`;
 
@@ -170,16 +220,17 @@ export const onRequestPost = async ({ request, env }: { request: Request; env: E
     .map(([k, v]) => `<tr><th align="left" style="color:#123B2A">${esc(k)}</th><td>${esc(v)}</td></tr>`)
     .join('')}</table><p style="font-family:sans-serif;font-size:14px;white-space:pre-wrap">${esc(message)}</p>`;
 
-  const r = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ from: env.MAIL_FROM, to: [to], reply_to: email, subject: emailSubject, text, html }),
-  });
-
-  if (!r.ok) {
-    console.error('Resend error', r.status, await r.text().catch(() => ''));
-    return json({ ok: false, error: 'We could not send your message right now.' }, 502);
+  try {
+    const r = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ from: env.MAIL_FROM, to: [to], reply_to: email, subject: emailSubject, text, html }),
+    });
+    if (!r.ok) throw new Error(`Resend ${r.status} ${await r.text().catch(() => '')}`);
+  } catch (e) {
+    console.error('Email failed', e);
+    // Already saved to the dashboard, so the visitor's message is not lost.
+    if (!saved) return json({ ok: false, error: 'We could not send your message right now.' }, 502);
   }
   return json({ ok: true });
 };
-

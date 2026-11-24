@@ -48,6 +48,11 @@ function track(name: string) {
   try { w.zaraz?.track?.(name); w.plausible?.(name); w.gtag?.('event', name); } catch {}
 }
 
+function resetTurnstile(form: HTMLFormElement) {
+  const box = form.querySelector('.cf-turnstile');
+  try { if (box) (window as any).turnstile?.reset?.(box); } catch {}
+}
+
 export function initForms() {
   document.querySelectorAll<HTMLFormElement>('form[data-form]').forEach((form) => {
     if (form.dataset.bound) return;
@@ -100,13 +105,13 @@ export function initForms() {
         const data = await res.json().catch(() => ({}));
         if (!res.ok || !data.ok) throw new Error(data.error || 'We could not send your message.');
         form.reset();
-        (window as any).turnstile?.reset?.();
+        resetTurnstile(form);
         setStatus(form, 'success', form.dataset.success || 'Thank you. Your message has been received.');
         track(form.dataset.event || 'form_submit');
       } catch (err) {
         const msg = err instanceof Error ? err.message : 'Something went wrong.';
         setStatus(form, 'error', `${msg} Please try again in a moment.`);
-        (window as any).turnstile?.reset?.();
+        resetTurnstile(form);
       } finally {
         if (btn) { btn.disabled = false; btn.textContent = label ?? 'Send'; }
       }

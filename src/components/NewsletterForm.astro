@@ -1,0 +1,37 @@
+---
+import FormShared from './FormShared.astro';
+---
+<form class="form newsletter" action="/api/submit" method="post" data-form data-event="newsletter_signup" data-success="Thank you. You are now on the Edunotech mailing list.">
+  <input type="hidden" name="formType" value="newsletter" />
+  <div class="newsletter__row">
+    <div class="field">
+      <label for="nl-email" class="sr-only">Email address</label>
+      <input id="nl-email" name="email" type="email" autocomplete="email" required maxlength="200" placeholder="Your email address" aria-describedby="nl-email-error" />
+      <p class="field-error" id="nl-email-error" aria-live="polite"></p>
+    </div>
+    <button type="submit" class="btn btn--lime">Subscribe</button>
+  </div>
+  <div class="field">
+    <label class="consent" for="nl-consent">
+      <input id="nl-consent" name="consent" type="checkbox" value="yes" required aria-describedby="nl-consent-error" data-required-msg="Please tick this box so we can email you." />
+      <span>Email me Edunotech news and ECIC updates. I can unsubscribe at any time. See the <a href="/privacy">Privacy Policy</a>.</span>
+    </label>
+    <p class="field-error" id="nl-consent-error" aria-live="polite"></p>
+  </div>
+  <FormShared compact />
+  <div class="form-status" data-form-status role="status" tabindex="-1"></div>
+</form>
+<script>
+  import { initForms } from '../scripts/forms';
+  initForms();
+</script>
+<style>
+  .newsletter { gap: 0.6rem; max-width: 34rem; }
+  .newsletter__row { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: flex-start; }
+  .newsletter__row .field { flex: 1 1 14rem; }
+  .newsletter__row .btn { min-height: 48px; }
+  .newsletter .consent { font-size: 0.88rem; font-weight: 500; color: var(--on-dark-muted); }
+  .newsletter .consent a { color: var(--lime); }
+  .newsletter .field-error { color: #ffb4ab; }
+  .newsletter .form-status--success { background: rgba(183, 217, 87, 0.15); color: var(--white); border-color: rgba(183, 217, 87, 0.4); }
+</style>
