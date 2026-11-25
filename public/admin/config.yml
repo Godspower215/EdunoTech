@@ -237,6 +237,8 @@ collections:
               - { name: heading, label: Heading, widget: string }
               - { name: paragraphs, label: Paragraphs, widget: list, field: { name: p, label: Paragraph, widget: text } }
               - { name: finaleDate, label: Grand Finale date, widget: datetime, time_format: false, format: "YYYY-MM-DD" }
+              - { name: finaleVenue, label: Grand Finale venue, widget: string, required: false }
+              - { name: finaleCity, label: Grand Finale city, widget: string, required: false }
           - name: stats
             label: Impact statistics
             widget: list
