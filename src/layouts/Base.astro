@@ -30,6 +30,16 @@ const org = {
   ...(site.contact.email ? { email: site.contact.email } : {}),
   ...(site.contact.phone ? { telephone: site.contact.phone } : {}),
   ...(site.founder ? { founder: { '@type': 'Person', name: site.founder } } : {}),
+  ...((site as any).location?.city
+    ? {
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: (site as any).location.city,
+          addressRegion: (site as any).location.region,
+          addressCountry: (site as any).location.country,
+        },
+      }
+    : {}),
   ...((site.socials as { url: string }[]).length ? { sameAs: (site.socials as { url: string }[]).map((s) => s.url) } : {}),
 };
 const cfToken = site.analytics.cloudflareToken;

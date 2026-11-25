@@ -5,11 +5,16 @@
   "logo": "/images/brand/edunotech-logo.png",
   "logoOnDark": "",
   "founder": "Godspower Olapade",
+  "location": {
+    "city": "Ibadan",
+    "region": "Oyo State",
+    "country": "NG"
+  },
   "contact": {
     "email": "edunotech.edu@gmail.com",
     "phone": "+2348163776911",
     "whatsapp": "+2348163776911",
-    "address": ""
+    "address": "Ibadan, Oyo State, Nigeria"
   },
   "socials": [
     {
