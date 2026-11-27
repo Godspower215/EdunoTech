@@ -76,6 +76,68 @@ const turnstileKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
     </main>
     <Footer statement={footerStatement} />
     <WhatsAppButton />
+    <script is:inline>
+      // Scroll reveal and number counters. Decoration only: if this script
+      // does not run, every element simply shows as normal.
+      (function () {
+        var mq = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)');
+        if ((mq && mq.matches) || !('IntersectionObserver' in window)) return;
+        var fine = ['.grid > *', '.process__step', '.audience-grid > li', '.stats > .stat', '.gallery > li', '.framework-mini li', '.section-head', '.cta-band', '.winner'];
+        var coarse = ['.split > *', '.section > .container > *'];
+        var picked = [];
+        fine.concat(coarse).forEach(function (sel) {
+          document.querySelectorAll('main ' + sel).forEach(function (el) {
+            if (el.hasAttribute('data-rv') || el.closest('[data-rv]') || el.querySelector('[data-rv]')) return;
+            el.setAttribute('data-rv', '');
+            picked.push(el);
+          });
+        });
+        var fold = window.innerHeight * 0.92;
+        var finish = function (el) {
+          el.classList.remove('reveal', 'is-in');
+          el.style.removeProperty('--rd');
+        };
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            var el = e.target;
+            io.unobserve(el);
+            el.classList.add('is-in');
+            var delay = parseInt(el.style.getPropertyValue('--rd'), 10) || 0;
+            setTimeout(function () { finish(el); }, 900 + delay);
+          });
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+        picked.forEach(function (el) {
+          // Leave anything already on screen alone, so nothing flickers.
+          if (el.getBoundingClientRect().top < fold) return;
+          var sibs = Array.prototype.filter.call(el.parentElement.children, function (c) { return c.hasAttribute('data-rv'); });
+          var i = Math.min(sibs.indexOf(el), 5);
+          if (i > 0) el.style.setProperty('--rd', i * 90 + 'ms');
+          el.classList.add('reveal');
+          io.observe(el);
+        });
+        window.addEventListener('beforeprint', function () { picked.forEach(finish); });
+
+        // Count up figures such as "150+" in the ECIC stats.
+        var cio = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            cio.unobserve(e.target);
+            var el = e.target, m = el.textContent.trim().match(/^(\d+)(.*)$/);
+            if (!m) return;
+            var end = parseInt(m[1], 10), rest = m[2], t0 = null, dur = 1400;
+            var step = function (t) {
+              if (t0 === null) t0 = t;
+              var p = Math.min((t - t0) / dur, 1), eased = 1 - Math.pow(1 - p, 3);
+              el.textContent = Math.round(end * eased) + rest;
+              if (p < 1) requestAnimationFrame(step);
+            };
+            requestAnimationFrame(step);
+          });
+        }, { threshold: 0.6 });
+        document.querySelectorAll('main [data-count]').forEach(function (el) { cio.observe(el); });
+      })();
+    </script>
     <script>
       // CTA click tracking. Sends to whichever analytics tool is installed
       // (Cloudflare Zaraz, Plausible or GA4). Does nothing if none is set up.
