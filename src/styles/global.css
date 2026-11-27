@@ -341,3 +341,51 @@ a:hover { color: var(--forest); }
 .social-btn:hover { background: var(--emerald); color: var(--white); }
 .site-footer .social-btn { background: rgba(255,255,255,0.08); color: var(--white); }
 .site-footer .social-btn:hover { background: var(--lime); color: var(--forest); }
+
+/* ---------- Motion ----------
+   Everything below is decoration only. Content is fully visible without
+   JavaScript, and nothing moves for visitors who ask for reduced motion
+   (the reduced-motion rule near the top of this file also switches off
+   every transition and animation). */
+
+/* Hover polish */
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+.icon-badge { transition: background-color 0.25s var(--ease), color 0.25s var(--ease), transform 0.25s var(--ease); }
+.card--link:hover .icon-badge { background: var(--emerald); color: var(--white); transform: scale(1.06); }
+.image-slot img { transition: scale 0.7s var(--ease); }
+.image-slot:hover img { scale: 1.04; }
+.social-btn { transition: background-color .15s, color .15s, transform .2s var(--ease); }
+.social-btn:hover { transform: translateY(-2px); }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Entrance for the top of each page (CSS only, runs once on load).
+     Opacity starts at 0.01, not 0, so the browser still counts the heading
+     as painted straight away for page-speed scores. */
+  .hero__inner > *,
+  .page-hero .container > *,
+  .ecic-hero__grid > div > * {
+    animation: rise 0.8s var(--ease) both;
+  }
+  .hero__inner > :nth-child(2), .page-hero .container > :nth-child(2), .ecic-hero__grid > div > :nth-child(2) { animation-delay: 0.08s; }
+  .hero__inner > :nth-child(3), .page-hero .container > :nth-child(3), .ecic-hero__grid > div > :nth-child(3) { animation-delay: 0.16s; }
+  .hero__inner > :nth-child(4), .page-hero .container > :nth-child(4), .ecic-hero__grid > div > :nth-child(4) { animation-delay: 0.24s; }
+  .hero__inner > :nth-child(n+5), .page-hero .container > :nth-child(n+5), .ecic-hero__grid > div > :nth-child(n+5) { animation-delay: 0.32s; }
+  .ecic-hero__img { animation: fade-in 1s var(--ease) 0.2s both; }
+  .page-hero__mark { animation: ring-in 1.2s var(--ease) both; }
+  .cta-band::after { transition: scale 0.8s var(--ease); }
+  .cta-band:hover::after { scale: 1.08; }
+
+  /* Scroll reveal. The script in Base.astro adds .reveal only to items that
+     start below the fold, then .is-in as each one scrolls into view. */
+  .reveal {
+    opacity: 0; transform: translateY(26px);
+    transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
+    transition-delay: var(--rd, 0ms);
+  }
+  .reveal.is-in { opacity: 1; transform: none; }
+}
+
+@keyframes rise { from { opacity: 0.01; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes fade-in { from { opacity: 0.01; transform: scale(0.97); } to { opacity: 1; transform: none; } }
+@keyframes ring-in { from { opacity: 0; scale: 0.8; } to { opacity: 0.16; scale: 1; } }

@@ -152,7 +152,7 @@ const fmtDate = (d: string) => new Date(d).toLocaleDateString('en-GB', { day: 'n
         {ecic.stats.map((s) => (
           <div class="stat">
             <dt>{s.label}</dt>
-            <dd>{s.value ? s.value : <Placeholder label="NUMBER" />}</dd>
+            <dd data-count={s.value ? '' : undefined}>{s.value ? s.value : <Placeholder label="NUMBER" />}</dd>
             {(s as any).note && <dd class="stat__note">{(s as any).note}</dd>}
           </div>
         ))}
