@@ -34,7 +34,7 @@ collections:
               - { name: email, label: Official email, widget: string, required: false }
               - { name: phone, label: Business phone, widget: string, required: false, hint: "International format, e.g. +234 ..." }
               - { name: whatsapp, label: WhatsApp business number, widget: string, required: false, hint: "International format. When set, a WhatsApp button appears on every page." }
-              - { name: address, label: Office address, widget: string, required: false }
+              - { name: address, label: Location (shown on Contact page), widget: string, required: false }
           - name: socials
             label: Social media links
             widget: list

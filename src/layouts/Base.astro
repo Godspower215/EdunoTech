@@ -30,6 +30,16 @@ const org = {
   ...(site.contact.email ? { email: site.contact.email } : {}),
   ...(site.contact.phone ? { telephone: site.contact.phone } : {}),
   ...(site.founder ? { founder: { '@type': 'Person', name: site.founder } } : {}),
+  ...((site as any).location?.city
+    ? {
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: (site as any).location.city,
+          addressRegion: (site as any).location.region,
+          addressCountry: (site as any).location.country,
+        },
+      }
+    : {}),
   ...((site.socials as { url: string }[]).length ? { sameAs: (site.socials as { url: string }[]).map((s) => s.url) } : {}),
 };
 const cfToken = site.analytics.cloudflareToken;
@@ -42,7 +52,7 @@ const turnstileKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {!noindex && <link rel="canonical" href={canonical} />}
     {noindex && <meta name="robots" content="noindex" />}
     <meta name="theme-color" content="#123B2A" />
     <link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48" />
